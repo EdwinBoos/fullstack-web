@@ -9,10 +9,9 @@ router.get('/', (req, res, next) =>
 		{ userId : 3, name : "admin" } 
 	  ] 
 	));
-
-router.post('/', (req, res, next) => res.send( 'Post successful'));
-router.put('/', (req, res, next) => res.send( 'Update successful'));
-router.delete('/', (req, res, next) => res.send( 'Delete successful'));
+router.post('/', (req, res, next) => res.send('Post successful'));
+router.put('/', (req, res, next) => res.send('Update successful'));
+router.delete('/', (req, res, next) => res.send('Delete successful'));
 
 
 
