@@ -1,5 +1,5 @@
 
-# Server:
+# Node Server
 
 <h2>Start in debugging mode</h2>
 
