@@ -6,7 +6,7 @@ router.get('/', (req, res, next) =>
 	  [ 
 		{ userId : 1, name : "Foo"}, 
 		{ userId : 2, name : "Foo"},
-		{ userId : 3, name : "admin" } 
+		{ userId : 3, name : "xd" }  
 	  ] 
 	));
 router.post('/', (req, res, next) => res.send('Post successful'));
