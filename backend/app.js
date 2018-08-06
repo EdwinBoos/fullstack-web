@@ -35,8 +35,8 @@ app.use((err, req, res, next) =>
 });
 
  models.sequelize
-	    .sync()
-	 	.then(() => console.log('Nice! Database looks fine'))
-		.catch((err) => console.log(err, "Something went wrong with the Database Update!"));
+	    .sync({ /*force: true*/ })
+	    .then(() => console.log('Connection is fine!'))
+	    .catch((err) => console.log(err));
 	
 module.exports = app;
