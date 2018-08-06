@@ -4,9 +4,9 @@ const router = express.Router();
 router.get('/', (req, res, next) => 
 	res.send( 
 	  [ 
-		{ userId : 1, name : "Foo"}, 
+		{ userId : 1, name : "xd"}, 
 		{ userId : 2, name : "Foo"},
-		{ userId : 3, name : "xd" }  
+		{ userId : 3, name : "xddd" }  
 	  ] 
 	));
 router.post('/', (req, res, next) => res.send('Post successful'));
