@@ -1,12 +1,15 @@
 const express = require('express');
 const router = express.Router();
+const user = require('../models/user')
+
 
 router.get('/', (req, res, next) => 
 	res.send( 
 	  [ 
-		{ userId : 1, name : "xd"}, 
+	    user,
+		{ UserId : 1, name : "foo"}, 
 		{ userId : 2, name : "Foo"},
-		{ userId : 3, name : "xddd" }  
+		{ userId : 3, name : "admin" }	 
 	  ] 
 	));
 router.post('/', (req, res, next) => res.send('Post successful'));

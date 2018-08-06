@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const models = require("./models");
 const app = express();
 
 // view engine setup
@@ -28,9 +29,14 @@ app.use((err, req, res, next) =>
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
-  res.status(err.status || 500);
+  res.status(err.status || 500); 
   res.render('error');
   
 });
 
+ models.sequelize
+	    .sync()
+	 	.then(() => console.log('Nice! Database looks fine'))
+		.catch((err) => console.log(err, "Something went wrong with the Database Update!"));
+	
 module.exports = app;
