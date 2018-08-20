@@ -37,5 +37,4 @@ router.put('/:id', (req, res) =>
   }
  }).then((user) => res.send(user)));
 
-
 module.exports = router;
