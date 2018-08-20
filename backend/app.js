@@ -34,8 +34,8 @@ app.use((err, req, res, next) =>
   
 });
 
- models.sequelize
-	    .sync({ /*force: true*/ })
+models.sequelize
+	    .sync({ force: true })
 	    .then(() => console.log('Connection is fine!'))
 	    .catch((err) => console.log(err));
 	
