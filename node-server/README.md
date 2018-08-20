@@ -48,14 +48,3 @@ Send a POST-Request to http://localhost:3000/users with following key/value pair
      "username" : String 
 }
 
-
-
-
-
-
-
-
-
-
-
-
