@@ -33,18 +33,14 @@ By entering ```node create_tables``` it will look for sequelize-models defined i
 
 <h3> Route /users </h3>
 
-| Route        | HTTP-Method | Body-Object (key-values) | Result  |
+| Route        | HTTP-Method | Body JSON (mandatory keys) | Result |
 | ------------- |:-------------:| -----| ------------- |
 | /users      | GET | - |Gets all users available |
 | /users/2      | GET | -  |  Gets user with Id 2   |
-| /users |      POST      |  { "firstname" : String  "lastname" : String "username" : String }  | Create a new user
+| /users |      POST      | "firstname" "lastname" "username" (strings) | Create a new user
 | /users/2 |      DELETE      |  -  | Delete user with id 2
-| /users/3 |      PUT      |  { "firstname" : String  "lastname" : String "username" : String }  | Update user with id 3
+| /users/3 |      PUT      |   "firstname" "lastname" "username" (strings)  | Update user with id 3
 | /users?sort=firstname&order=asc |      GET      |  -  | Sort by firstname (order: ascending) 
 | /users?sort=id&order=desc |      GET      |  -  | Sort by id (order: descending) 
 | /users?sort=username |      GET      |  -  | Sort by username (default: ascending) 
-
-
-
-
 
