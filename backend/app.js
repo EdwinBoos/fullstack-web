@@ -36,7 +36,7 @@ app.use((err, req, res, next) =>
 
 models.sequelize
 	    .sync({ force: true })
-	    .then(() => console.log('Connection is fine!'))
+	    .then(() => console.log('models sync successful!'))
 	    .catch((err) => console.log(err));
 	
 module.exports = app;

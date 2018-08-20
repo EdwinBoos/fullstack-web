@@ -2,11 +2,6 @@ const express = require('express');
 const router = express.Router(); 
 const models  = require('../models');
 
-models.users.create({
-    firstname: "test",
-    lastname : "test"
-});	
-
 router.get('/', (req, res, next) => 
 	res.send( 
 	  [ 
