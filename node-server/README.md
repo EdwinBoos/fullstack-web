@@ -33,18 +33,14 @@ By entering ```npm create_tables``` it will look for sequelize-models defined in
 
 <h3> Route /users </h3>
 
+| Route        | HTTP-Method | Body-Object (key-values) | Result  |
+| ------------- |:-------------:| -----| ------------- |
+| /users      | GET | No needed |Gets all users available |
+| /users/2      | GET | No needed  |  Gets user with Id 2   |
+| /users |      POST      |  { "firstname" : String  "lastname" : String "username" : String }  | Create a new user
+| /users/2 |      DELETE      |  No needed  | Delete user with id 2
+| /users/3 |      PUT      |  { "firstname" : String  "lastname" : String "username" : String }  | Update exisiting user with id 3
 - Read all users
 
-Open http://localhost:3000/users, it will respond with all users data which are in the sqllite database.
 
-- Create a user and save it in the sqllite database: 
-
-Send a POST-Request to http://localhost:3000/users with following key/value pairs:
-
-``` 
-{ 
-     "firstname" : String  
-     "lastname" : String  
-     "username" : String 
-}
 
