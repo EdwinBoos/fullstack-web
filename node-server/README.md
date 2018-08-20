@@ -35,12 +35,12 @@ By entering ```npm create_tables``` it will look for sequelize-models defined in
 
 | Route        | HTTP-Method | Body-Object (key-values) | Result  |
 | ------------- |:-------------:| -----| ------------- |
-| /users      | GET | No needed |Gets all users available |
-| /users/2      | GET | No needed  |  Gets user with Id 2   |
+| /users      | GET | - |Gets all users available |
+| /users/2      | GET | -  |  Gets user with Id 2   |
 | /users |      POST      |  { "firstname" : String  "lastname" : String "username" : String }  | Create a new user
-| /users/2 |      DELETE      |  No needed  | Delete user with id 2
-| /users/3 |      PUT      |  { "firstname" : String  "lastname" : String "username" : String }  | Update exisiting user with id 3
-- Read all users
+| /users/2 |      DELETE      |  -  | Delete user with id 2
+| /users/3 |      PUT      |  { "firstname" : String  "lastname" : String "username" : String }  | Update user with id 3
+
 
 
 
