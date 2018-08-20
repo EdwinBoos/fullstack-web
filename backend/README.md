@@ -1,20 +1,22 @@
 
 # Node Server (Express + Sqlite + Sequlize + Nodemon)
 
+
+
 <h3>Start in debugging mode</h3>
 
   Mac OS/Linux 
 
- - ``` $ DEBUG=myapp:* npm start ```
+  ``` $ DEBUG=myapp:* npm start ```
 
   Windows 
 
- - ``` set DEBUG=myapp:* & npm start``` 
+  ``` set DEBUG=myapp:* & npm start``` 
 
 
 <h3>Start without debugging mode</h3>
 
- - ``` npm start``` 
+  ``` npm start``` 
 
 
 Open up following URL http://localhost:3000 in your browser
@@ -28,6 +30,32 @@ Just enter ```npm create_db```, it will create Databases ( development, testing,
 
 By entering ```npm create_tables``` it will look for sequelize-models defined in models folder, and create them. 
 ( The force : true attribute does override existing tables ) 
+
+<h3> Route /users </h3>
+
+- Read all users
+
+Open http://localhost:3000/users, it will respond with all users data which are in the sqllite database.
+
+- Create a user and save it in the sqllite database: 
+
+Send a POST-Request to http://localhost:3000/users with following key/value pairs:
+
+``` 
+{ 
+     "firstname" : String  
+     "lastname" : String  
+     "username" : String 
+}
+
+
+
+
+
+
+
+
+
 
 
 
