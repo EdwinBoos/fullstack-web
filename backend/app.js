@@ -5,7 +5,6 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
-const models = require("./models");
 const app = express();
 
 // view engine setup
@@ -33,10 +32,5 @@ app.use((err, req, res, next) =>
   res.render('error');
   
 });
-
-models.sequelize
-	    .sync({ force: true })
-	    .then(() => console.log('models sync successful!'))
-	    .catch((err) => console.log(err));
 	
 module.exports = app;
