@@ -6,10 +6,11 @@ const models  = require('../models');
 
 router.get('/', (req, res, next) => 
 	models.users.findAll().then((users) => 
-	res.send(users);
+	res.send(users)
 ));
 
 router.post('/', (req, res, next) => 
+	
 	models.users.create(
 			{ 	
 				username: req.body.username, 
