@@ -1,5 +1,5 @@
 
-# Node Server (Express + Sqlite + Sequlize + Nodemon)
+# Node Server (Express + Sqlite + Sequelize + Nodemon)
 
 
 
