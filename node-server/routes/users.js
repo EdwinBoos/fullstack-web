@@ -1,20 +1,18 @@
 const express = require('express');
 const router = express.Router();
 const models = require('../models');
-const sort =  require('fast-sort');
+const sort = require('fast-sort');
 
-router.get('/', (req, res, next) => 
+router.get('/', (req, res, next) =>
  models.users.findAll().then((users) => {
- 	if(req.query.sort) 
- 	{
- 		const sortObject = { }
- 		const order = req.query.order || "asc";
- 		sortObject[order] = req.query.sort;
-		users = sort(users).by([sortObject]);
- 	}
-    res.send(users);
+  if (req.query.sort) {
+   const sortObject = {}
+   const order = req.query.order || "asc";
+   sortObject[order] = req.query.sort;
+   users = sort(users).by([sortObject]);
   }
- ));
+  res.send(users);
+ }));
 
 router.get('/:id', (req, res) =>
  models.users.findById(req.params.id).then((user) =>
