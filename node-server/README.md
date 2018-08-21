@@ -19,7 +19,7 @@
   ``` npm start``` 
 
 
-Open up following URL http://localhost:3000 in your browser
+Open up following URL http://localhost:3001 in your browser
 
 
 <h3> Create sqlite databases </h3>
