@@ -1426,10 +1426,6 @@ class Model {
     return self;
   }
 
-  static all(options) {
-    return this.findAll(options);
-  }
-
   /**
    * Search for multiple instances.
    *
@@ -1495,8 +1491,6 @@ class Model {
    *
    * The promise is resolved with an array of Model instances if the query succeeds.
    *
-   * __Alias__: _all_
-   *
    * @param  {Object}                                                    [options] A hash of options to describe the scope of the search
    * @param  {Object}                                                    [options.where] A hash of attributes to describe your search. See above for examples.
    * @param  {Array<String>|Object}                                      [options.attributes] A list of the attributes that you want to select, or an object with `include` and `exclude` keys. To rename an attribute, you can pass an array, with two elements - the first is the name of the attribute in the DB (or some kind of expression such as `Sequelize.literal`, `Sequelize.fn` and so on), and the second is the name you want the attribute to have in the returned instance
@@ -1534,7 +1528,7 @@ class Model {
    */
   static findAll(options) {
     if (options !== undefined && !_.isPlainObject(options)) {
-      throw new sequelizeErrors.QueryError('The argument passed to findAll must be an options object, use findById if you wish to pass a single primary key value');
+      throw new sequelizeErrors.QueryError('The argument passed to findAll must be an options object, use findByPk if you wish to pass a single primary key value');
     }
 
     if (options !== undefined && options.attributes) {
@@ -1697,8 +1691,6 @@ class Model {
   /**
    * Search for a single instance by its primary key.
    *
-   * __Alias__: _findByPrimary_
-   *
    * @param  {Number|String|Buffer}      id The value of the desired instance's primary key.
    * @param  {Object}                    [options]
    * @param  {Transaction}               [options.transaction] Transaction to run query under
@@ -1707,7 +1699,7 @@ class Model {
    * @see {@link Model.findAll}           for a full explanation of options
    * @return {Promise<Model>}
    */
-  static findById(param, options) {
+  static findByPk(param, options) {
     // return Promise resolved with null if no arguments are passed
     if ([null, undefined].indexOf(param) !== -1) {
       return Promise.resolve(null);
@@ -1719,7 +1711,7 @@ class Model {
       options.where = {};
       options.where[this.primaryKeyAttribute] = param;
     } else {
-      throw new Error('Argument passed to findById is invalid: '+param);
+      throw new Error('Argument passed to findByPk is invalid: '+param);
     }
 
     // Bypass a possible overloaded findOne
@@ -1740,7 +1732,7 @@ class Model {
    */
   static findOne(options) {
     if (options !== undefined && !_.isPlainObject(options)) {
-      throw new Error('The argument passed to findOne must be an options object, use findById if you wish to pass a single primary key value');
+      throw new Error('The argument passed to findOne must be an options object, use findByPk if you wish to pass a single primary key value');
     }
     options = Utils.cloneDeep(options);
 
@@ -1850,8 +1842,6 @@ class Model {
         col = this.name + '.' + (options.col || this.primaryKeyField);
       }
 
-      Utils.mapOptionFieldNames(options, this);
-
       options.plain = !options.group;
       options.dataType = new DataTypes.INTEGER();
       options.includeIgnoreAttributes = false;
@@ -1893,16 +1883,14 @@ class Model {
    * ```
    * Because the include for `Profile` has `required` set it will result in an inner join, and only the users who have a profile will be counted. If we remove `required` from the include, both users with and without profiles will be counted
    *
-   * __Alias__: _findAndCountAll_
-   *
    * @param {Object} [findOptions] See findAll
    *
    * @see {@link Model.findAll} for a specification of find and query options
    * @return {Promise<{count: Integer, rows: Model[]}>}
    */
-  static findAndCount(options) {
+  static findAndCountAll(options) {
     if (options !== undefined && !_.isPlainObject(options)) {
-      throw new Error('The argument passed to findAndCount must be an options object, use findById if you wish to pass a single primary key value');
+      throw new Error('The argument passed to findAndCountAll must be an options object, use findByPk if you wish to pass a single primary key value');
     }
 
     const countOptions = Utils.cloneDeep(options);
@@ -2060,7 +2048,7 @@ class Model {
 
     let values;
 
-    return this.find(options).then(instance => {
+    return this.findOne(options).then(instance => {
       if (instance === null) {
         values = _.clone(options.defaults) || {};
         if (_.isPlainObject(options.where)) {
@@ -2288,7 +2276,7 @@ class Model {
         return this.QueryInterface.upsert(this.getTableName(options), insertValues, updateValues, instance.where(), this, options);
       }).spread((created, primaryKey) => {
         if (options.returning === true && primaryKey) {
-          return this.findById(primaryKey, options).then(record => [record, created]);
+          return this.findByPk(primaryKey, options).then(record => [record, created]);
         }
 
         return created;
@@ -2315,7 +2303,7 @@ class Model {
    * @param  {Boolean}      [options.validate=false]         Should each row be subject to validation before it is inserted. The whole insert will fail if one row fails validation
    * @param  {Boolean}      [options.hooks=true]             Run before / after bulk create hooks?
    * @param  {Boolean}      [options.individualHooks=false]  Run before / after create hooks for each individual Instance? BulkCreate hooks will still be run if options.hooks is true.
-   * @param  {Boolean}      [options.ignoreDuplicates=false] Ignore duplicate values for primary keys? (not supported by postgres)
+   * @param  {Boolean}      [options.ignoreDuplicates=false] Ignore duplicate values for primary keys? (not supported by postgres < 9.5)
    * @param  {Array}        [options.updateOnDuplicate]      Fields to update if row key already exists (on duplicate key update)? (only supported by mysql). By default, all fields are updated.
    * @param  {Transaction}  [options.transaction] Transaction to run query under
    * @param  {Function}     [options.logging=false]          A function that gets executed while running the query to log the sql.
@@ -2340,7 +2328,8 @@ class Model {
     options.fields = options.fields || Object.keys(this.tableAttributes);
 
     const dialect = this.sequelize.options.dialect;
-    if (options.ignoreDuplicates && ['postgres', 'mssql'].indexOf(dialect) !== -1) {
+
+    if (options.ignoreDuplicates && dialect === 'mssql') {
       return Promise.reject(new Error(dialect + ' does not support the \'ignoreDuplicates\' option.'));
     }
     if (options.updateOnDuplicate && dialect !== 'mysql') {
@@ -3213,6 +3202,7 @@ class Model {
    */
   setDataValue(key, value) {
     const originalValue = this._previousDataValues[key];
+
     if (!Utils.isPrimitive(value) || value !== originalValue) {
       this.changed(key, true);
     }
@@ -4178,6 +4168,7 @@ class Model {
    * @param {string}          [options.onDelete='SET&nbsp;NULL|CASCADE'] SET NULL if foreignKey allows nulls, CASCADE if otherwise
    * @param {string}          [options.onUpdate='CASCADE']
    * @param {boolean}         [options.constraints=true] Should on update and on delete constraints be enabled on the foreign key.
+   * @param {string}          [options.uniqueKey] The custom name for unique constraint.
    * @returns {HasOne}
    * @example
    * User.hasOne(Profile) // This will add userId to the profile table
@@ -4205,16 +4196,43 @@ class Model {
 }
 
 // Aliases
-Model.prototype.updateAttributes = Model.prototype.update;
-
 Model._conformOptions = Model._conformOptions;
 Model._validateIncludedElements = Model._validateIncludedElements;
 Model._expandIncludeAll = Model._expandIncludeAll;
-Model.findByPrimary = Model.findById;
-Model.find = Model.findOne;
-Model.findAndCountAll = Model.findAndCount;
-Model.findOrInitialize = Model.findOrBuild;
-Model.insertOrUpdate = Model.upsert;
+
+Model.findByPrimary = function () {
+  Utils.deprecate('Model.findByPrimary has been deprecated, please use Model.findByPk instead');
+  return Model.findByPk.apply(this, arguments);
+};
+Model.findById = function () {
+  Utils.deprecate('Model.findById has been deprecated, please use Model.findByPk instead');
+  return Model.findByPk.apply(this, arguments);
+};
+Model.find = function () {
+  Utils.deprecate('Model.find has been deprecated, please use Model.findOne instead');
+  return Model.findOne.apply(this, arguments);
+};
+Model.findAndCount = function () {
+  Utils.deprecate('Model.findAndCount has been deprecated, please use Model.findAndCountAll instead');
+  return Model.findAndCountAll.apply(this, arguments);
+};
+Model.findOrInitialize = function () {
+  Utils.deprecate('Model.findOrInitialize has been deprecated, please use Model.findOrBuild instead');
+  return Model.findOrBuild.apply(this, arguments);
+};
+Model.insertOrUpdate = function () {
+  Utils.deprecate('Model.insertOrUpdate has been deprecated, please use Model.upsert instead');
+  return Model.upsert.apply(this, arguments);
+};
+Model.all = function () {
+  Utils.deprecate('Model.all has been deprecated, please use Model.findAll instead');
+  return Model.findAll.apply(this, arguments);
+};
+Model.prototype.updateAttributes = function () {
+  Utils.deprecate('Instance.updateAttributes has been deprecated, please use Instance.update instead');
+  return Model.prototype.update.apply(this, arguments);
+};
+
 
 _.extend(Model, associationsMixin);
 Hooks.applyTo(Model);

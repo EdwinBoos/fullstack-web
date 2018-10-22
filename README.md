@@ -1,7 +1,9 @@
 
 # Node Server (Express + Sqlite + Sequelize + Nodemon)
 
+<h3> Install dependencies </h3>
 
+``` npm install ``` 
 
 <h3>Start in debugging mode</h3>
 
