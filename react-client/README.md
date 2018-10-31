@@ -1,6 +1,9 @@
 # react
+<h3> Install dependencies </h3> 
 
-<h3> Start application </h3><br>
+``` npm install ```
+
+<h3> Start application </h3>
 
 ``` npm run start ``` 
 
