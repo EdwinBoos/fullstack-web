@@ -1,47 +1,60 @@
 import React, { Component } from 'react';
-import '../css/App.css';
 import axios from 'axios';
 import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import Fade from '@material-ui/core/Fade'
 import Button from '@material-ui/core/Button'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
+import ListItemText from '@material-ui/core/ListItemText'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
+import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 
-const styles = {
-  root : { flexGrow : 1 }
-}
 class App extends Component {
-  state = {users: []}
+
+  state = { users: [], loading : false }
 
   componentDidMount() {
+    this.setState({ users : [], loading : true }); 
     axios.get('/users?sort=id&order=desc')
-         .then(users => this.setState({ users : users.data }));
+         .then(users => this.setState({ users : users.data, loading : false }));
   }
 
   render() {
     return (
       <div className="classes.root">
-	<AppBar>  
+	<AppBar position="static">  
          <Toolbar> 
 	   <Typography color="inherit" variant="H6">
 	     Users
 	   </Typography>
+	   <div classes="right">
+	    <Fade in={this.state.loading}>
+	     <CircularProgress color="second"/>
+	    </Fade>
+	   </div>
          </Toolbar>
         </AppBar>
 	<Card>
-	<List>
-	{ 
-           this.state.users.map(user =>
-              <ListItem key={user.id}>{user.id} {user.firstname} {user.lastname} {user.username}</ListItem>
-        )}
-	</List>
-        </Card>	
-        <Button variant="contained" color="primary">
-        Add 
-	</Button>
+         <CardContent>	
+	  <List component="nav">
+	   { 
+             this.state.users.map(user =>
+            
+		<ListItem button key={user.id}>
+                   <ListItemIcon> <AccountCircleIcon> </AccountCircleIcon> </ListItemIcon>	
+                   <ListItemText>{user.firstname} {user.lastname} {user.username}</ListItemText>	
+		</ListItem>
 
+          )}
+	  </List>
+          <Button variant="contained" color="primary">Add</Button>
+	 </CardContent>
+        </Card>	
       </div>
     );
   }
