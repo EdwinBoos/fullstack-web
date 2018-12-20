@@ -21,7 +21,8 @@ class App extends Component {
     this.setState({ users: [], loading: true });
     axios
       .get("/users?sort=id&order=desc")
-      .then(users => this.setState({ users: users.data, loading: false }));
+      .then(users => this.setState({ users: users.data, loading: false }))
+      .catch(error => this.setState({ users: [], loading: false }));
   }
 
   render() {
