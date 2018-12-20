@@ -25,17 +25,20 @@ class App extends Component {
       .catch(error => this.setState({ users: [], loading: false }));
   }
 
-  render() {
+  handleClick(event) {
+      console.log(event.target.id);
+  }
+  
     return (
       <div className="classes.root">
         <AppBar position="static">
           <Toolbar>
-            <Typography color="inherit" variant="H6">
+            <Typography color="inherit" variant="h6">
               Users
             </Typography>
             <div>
               <Fade in={this.state.loading}>
-                <CircularProgress color="second" />
+                <CircularProgress color="secondary" />
               </Fade>
             </div>
           </Toolbar>
@@ -44,10 +47,9 @@ class App extends Component {
           <CardContent>
             <List component="nav">
               {this.state.users.map(user => (
-                <ListItem button key={user.id}>
+                <ListItem key={user.id} button onClick={this.handleClick} id={user.id} >
                   <ListItemIcon>
-                    {" "}
-                    <AccountCircleIcon> </AccountCircleIcon>{" "}
+                    <AccountCircleIcon> </AccountCircleIcon>
                   </ListItemIcon>
                   <ListItemText>
                     {user.firstname} {user.lastname} {user.username}
