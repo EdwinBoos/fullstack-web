@@ -28,7 +28,8 @@ class App extends Component {
   handleClick(event) {
       console.log(event.target.id);
   }
-  
+ 
+  render() {
     return (
       <div className="classes.root">
         <AppBar position="static">
