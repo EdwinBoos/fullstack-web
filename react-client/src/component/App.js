@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
-import Card from "@material-ui/core/Card";
+import Paper from "@material-ui/core/Paper";
 import { Link } from "react-router-dom";
-import CardContent from "@material-ui/core/CardContent";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Fade from "@material-ui/core/Fade";
 import Button from "@material-ui/core/Button";
@@ -41,9 +40,8 @@ class App extends Component {
             </div>
           </Toolbar>
         </AppBar>
-        <Card>
-          <CardContent>
-            <List component="nav">
+        <Paper >
+            <List style={{overflow: 'auto'}}> 
               {this.state.users.map((user, index) => (
                 <ListItem
                   key={index}
@@ -55,16 +53,12 @@ class App extends Component {
                     <AccountCircleIcon> </AccountCircleIcon>
                   </ListItemIcon>
                   <ListItemText>
-                    {user.firstname} {user.lastname} {user.username}
+                    {user.username}
                   </ListItemText>
                 </ListItem>
               ))}
             </List>
-            <Button variant="contained" color="primary">
-              Add
-            </Button>
-          </CardContent>
-        </Card>
+        </Paper>
       </div>
     );
   }
