@@ -9,6 +9,7 @@ import Typography from "@material-ui/core/Typography";
 
 class App extends Component {
   state = { user: {}, loading: false };
+
   componentDidMount() {
     this.setState({ user: {}, loading: true });
     const { userId } = this.props.match.params
