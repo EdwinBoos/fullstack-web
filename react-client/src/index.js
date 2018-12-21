@@ -8,10 +8,10 @@ import registerServiceWorker from "./registerServiceWorker";
 
 ReactDOM.render(
   <Router>
-      <Switch>
-        <Route exact path="/" component={withRouter(App)} />
-        <Route path="/users/:userId" component={withRouter(User)} />
-      </Switch>
+     <Switch>
+       <Route exact path="/" component={withRouter(App)} />
+       <Route path="/users/:userId" component={withRouter(User)} />
+     </Switch>
   </Router>,
   document.getElementById("root")
 );
