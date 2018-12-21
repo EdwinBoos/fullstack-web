@@ -19,8 +19,7 @@ class App extends Component {
 
   render() {
     return (
-    
-      <div className="classes.root"> 
+      <div className="classes.root">
         <AppBar position="static">
           <Toolbar>
             <Typography color="inherit" variant="h6">
@@ -33,8 +32,7 @@ class App extends Component {
             </div>
           </Toolbar>
         </AppBar>
-        <Card>
-        </Card>
+        <Card />
       </div>
     );
   }
