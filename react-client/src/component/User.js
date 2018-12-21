@@ -7,7 +7,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 
-class App extends Component {
+class User extends Component {
   state = { user: {}, loading: false };
 
   componentDidMount() {
@@ -15,7 +15,7 @@ class App extends Component {
     const { userId } = this.props.match.params
     axios
       .get(`/users/${userId}`)
-      .then(user => { console.log(user); this.setState({ user: user.data, loading: false })})
+      .then(user => this.setState({ user: user.data, loading: false }))
       .catch(error => this.setState({ user: {}, loading: false }));
   }
 
@@ -35,12 +35,10 @@ class App extends Component {
           </Toolbar>
         </AppBar>
         <Card>
-         <div></div> 
-	 
 	</Card>
       </div>
     );
   }
 }
 
-export default App;
+export default User;
