@@ -45,7 +45,7 @@ class App extends Component {
           <CardContent>
             <List component="nav">
               {this.state.users.map((user, index) => (
-                <ListItem id={index} button component={Link} to={`/user${user.id}`} >
+                <ListItem id={index} button component={Link} to={`users/${user.id}`}>
                   <ListItemIcon>
                     <AccountCircleIcon> </AccountCircleIcon>
                   </ListItemIcon>
