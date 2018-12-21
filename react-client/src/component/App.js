@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Card from "@material-ui/core/Card";
+import { Link } from "react-router-dom";
 import CardContent from "@material-ui/core/CardContent";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Fade from "@material-ui/core/Fade";
@@ -25,13 +26,9 @@ class App extends Component {
       .catch(error => this.setState({ users: [], loading: false }));
   }
 
-  handleClick(event) {
-      console.log(event.target.id);
-  }
- 
   render() {
     return (
-      <div className="classes.root">
+      <div className="classes.root"> 
         <AppBar position="static">
           <Toolbar>
             <Typography color="inherit" variant="h6">
@@ -47,8 +44,8 @@ class App extends Component {
         <Card>
           <CardContent>
             <List component="nav">
-              {this.state.users.map(user => (
-                <ListItem key={user.id} button onClick={this.handleClick} id={user.id} >
+              {this.state.users.map((user, index) => (
+                <ListItem id={index} button component={Link} to={`/user${user.id}`} >
                   <ListItemIcon>
                     <AccountCircleIcon> </AccountCircleIcon>
                   </ListItemIcon>
@@ -58,7 +55,7 @@ class App extends Component {
                 </ListItem>
               ))}
             </List>
-            <Button variant="contained" color="primary">
+            <Button component={Link} to="/open-collective" variant="contained" color="primary">
               Add
             </Button>
           </CardContent>
