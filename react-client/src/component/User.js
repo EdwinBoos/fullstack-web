@@ -18,7 +18,7 @@ class User extends Component {
 
   componentDidMount() {
     this.setState({ user: {}, loading: true });
-    const { userId } = this.props.match.params
+    const { userId } = this.props.match.params;
     axios
       .get(`/users/${userId}`)
       .then(user => this.setState({ user: user.data, loading: false }))
@@ -40,25 +40,28 @@ class User extends Component {
             </div>
           </Toolbar>
         </AppBar>
-        <Card style={{ maxWidth : 1200 }}>
-	  <CardMedia style={{ height : 250, paddingTop : '30%' }} image={ require("../img/foo.jpg")}/>
-	  <CardContent >
-	     <Typography variant="inherit">
-                   first name: {this.state.user.firstname}
-	     </Typography>
-             <Typography variant="inherit">
-                   last name: {this.state.user.lastname}
-	     </Typography>
-             </CardContent>
-	    <CardActions>
-               <IconButton>
-                 <DeleteIcon/>
-	       </IconButton>
-               <IconButton>
-                 <EditIcon/>
-	       </IconButton>
-	    </CardActions>
-	</Card>
+        <Card style={{ maxWidth: 1200 }}>
+          <CardMedia
+            style={{ height: 250, paddingTop: "30%" }}
+            image={require("../img/foo.jpg")}
+          />
+          <CardContent>
+            <Typography variant="inherit">
+              first name: {this.state.user.firstname}
+            </Typography>
+            <Typography variant="inherit">
+              last name: {this.state.user.lastname}
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <IconButton>
+              <DeleteIcon />
+            </IconButton>
+            <IconButton>
+              <EditIcon />
+            </IconButton>
+          </CardActions>
+        </Card>
       </div>
     );
   }
