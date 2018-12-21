@@ -39,24 +39,22 @@ class App extends Component {
             </div>
           </Toolbar>
         </AppBar>
-        <Paper >
-            <List style={{overflow: 'auto'}}> 
-              {this.state.users.map((user, index) => (
-                <ListItem
-                  key={index}
-                  button
-                  component={Link}
-                  to={`/users/${user.id}`}
-                >
-                  <ListItemIcon>
-                    <AccountCircleIcon> </AccountCircleIcon>
-                  </ListItemIcon>
-                  <ListItemText>
-                    {user.username}
-                  </ListItemText>
-                </ListItem>
-              ))}
-            </List>
+        <Paper>
+          <List style={{ overflow: "auto" }}>
+            {this.state.users.map((user, index) => (
+              <ListItem
+                key={index}
+                button
+                component={Link}
+                to={`/users/${user.id}`}
+              >
+                <ListItemIcon>
+                  <AccountCircleIcon> </AccountCircleIcon>
+                </ListItemIcon>
+                <ListItemText>{user.username}</ListItemText>
+              </ListItem>
+            ))}
+          </List>
         </Paper>
       </div>
     );
