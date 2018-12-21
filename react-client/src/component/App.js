@@ -4,6 +4,7 @@ import Paper from "@material-ui/core/Paper";
 import { Link } from "react-router-dom";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Fade from "@material-ui/core/Fade";
+import IconButton from "@material-ui/core/IconButton";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -12,6 +13,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import AddCircleIcon from "@material-ui/icons/AddCircle";
 
 class App extends Component {
   state = { users: [], loading: false };
@@ -29,12 +31,15 @@ class App extends Component {
       <div className="classes.root">
         <AppBar position="static">
           <Toolbar>
+	    <IconButton color="secondary" styles={{ marginLeft : -12, marginRight : 20}} aria-label="Menu">
+	      <AddCircleIcon/>
+	    </IconButton>
             <Typography color="inherit" variant="h6">
               Users
             </Typography>
             <div>
               <Fade in={this.state.loading}>
-                <CircularProgress color="secondary" />
+                <CircularProgress styles={{ marginLeft : 10}} color="secondary" />
               </Fade>
             </div>
           </Toolbar>
@@ -55,6 +60,7 @@ class App extends Component {
               </ListItem>
             ))}
           </List>
+
         </Paper>
       </div>
     );
