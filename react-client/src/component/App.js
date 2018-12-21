@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Card from "@material-ui/core/Card";
-import { Link } from "react-router-dom";
+import { withRouter, Link, Route } from "react-router-dom";
 import CardContent from "@material-ui/core/CardContent";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Fade from "@material-ui/core/Fade";
@@ -14,7 +14,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-
+const Detail = () => (<div> matched </div>);
 class App extends Component {
   state = { users: [], loading: false };
 
@@ -28,6 +28,7 @@ class App extends Component {
 
   render() {
     return (
+    
       <div className="classes.root"> 
         <AppBar position="static">
           <Toolbar>
@@ -45,7 +46,7 @@ class App extends Component {
           <CardContent>
             <List component="nav">
               {this.state.users.map((user, index) => (
-                <ListItem id={index} button component={Link} to={`users/${user.id}`}>
+                <ListItem key={index} button component={Link} to={`users/${user.id}`}>
                   <ListItemIcon>
                     <AccountCircleIcon> </AccountCircleIcon>
                   </ListItemIcon>
@@ -60,6 +61,7 @@ class App extends Component {
             </Button>
           </CardContent>
         </Card>
+	<Route path="/users/:userId" component={withRouter(Detail)} />
       </div>
     );
   }
