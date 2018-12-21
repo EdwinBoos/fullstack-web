@@ -31,7 +31,7 @@ class App extends Component {
       <div className="classes.root">
         <AppBar position="static">
           <Toolbar>
-	    <IconButton color="secondary" styles={{ marginLeft : -12, marginRight : 20}} aria-label="Menu">
+	    <IconButton color="secondary" aria-label="Menu">
 	      <AddCircleIcon/>
 	    </IconButton>
             <Typography color="inherit" variant="h6">
@@ -39,7 +39,7 @@ class App extends Component {
             </Typography>
             <div>
               <Fade in={this.state.loading}>
-                <CircularProgress styles={{ marginLeft : 10}} color="secondary" />
+                <CircularProgress color="secondary" />
               </Fade>
             </div>
           </Toolbar>
