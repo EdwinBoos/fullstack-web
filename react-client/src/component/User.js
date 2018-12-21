@@ -6,15 +6,16 @@ import Fade from "@material-ui/core/Fade";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-class App extends Component {
-  state = { users: [], loading: false };
 
+class App extends Component {
+  state = { user: {}, loading: false };
   componentDidMount() {
-    this.setState({ users: [], loading: true });
+    this.setState({ user: {}, loading: true });
+    const { userId } = this.props.match.params
     axios
-      .get("/users?sort=id&order=desc")
-      .then(users => this.setState({ users: users.data, loading: false }))
-      .catch(error => this.setState({ users: [], loading: false }));
+      .get(`/users/${userId}`)
+      .then(user => { console.log(user); this.setState({ user: user.data, loading: false })})
+      .catch(error => this.setState({ user: {}, loading: false }));
   }
 
   render() {
@@ -23,7 +24,7 @@ class App extends Component {
         <AppBar position="static">
           <Toolbar>
             <Typography color="inherit" variant="h6">
-              User
+              User {this.state.user.username}
             </Typography>
             <div>
               <Fade in={this.state.loading}>
@@ -32,7 +33,10 @@ class App extends Component {
             </div>
           </Toolbar>
         </AppBar>
-        <Card />
+        <Card>
+         <div></div> 
+	 
+	</Card>
       </div>
     );
   }
