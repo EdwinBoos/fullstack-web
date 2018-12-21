@@ -55,7 +55,7 @@ class App extends Component {
                 </ListItem>
               ))}
             </List>
-            <Button component={Link} to="/open-collective" variant="contained" color="primary">
+            <Button variant="contained" color="primary">
               Add
             </Button>
           </CardContent>
