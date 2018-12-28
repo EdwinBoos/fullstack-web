@@ -16,13 +16,23 @@ import EditIcon from "@material-ui/icons/Edit";
 class User extends Component {
   state = { user: {}, loading: false };
 
+  constructor() {
+    super(); 
+    this.CancelToken = axios.CancelToken;
+    this.source = this.CancelToken.source();
+  }
+
   componentDidMount() {
     this.setState({ user: {}, loading: true });
     const { userId } = this.props.match.params;
     axios
-      .get(`/users/${userId}`)
+      .get(`/users/${userId}`, { cancelToken : this.source.token })
       .then(user => this.setState({ user: user.data, loading: false }))
-      .catch(error => this.setState({ user: {}, loading: false }));
+      .catch(error => { if(!axios.isCancel(error)) { this.setState({ users: {}, loading: false }) } });
+  }
+
+  componentWillUnmount() {
+      this.source.cancel();
   }
 
   render() {

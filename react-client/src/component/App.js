@@ -17,15 +17,25 @@ import AddCircleIcon from "@material-ui/icons/AddCircle";
 
 class App extends Component {
   state = { users: [], loading: false };
+    
+  constructor() {
+    super(); 
+    this.CancelToken = axios.CancelToken;
+    this.source = this.CancelToken.source();
+  }
 
   componentDidMount() {
     this.setState({ users: [], loading: true });
     axios
-      .get("/users?sort=id&order=desc")
+      .get("/users?sort=id&order=desc", { cancelToken : this.source.token })
       .then(users => this.setState({ users: users.data, loading: false }))
-      .catch(error => this.setState({ users: [], loading: false }));
+      .catch(error => { if(!axios.isCancel(error)) { this.setState({ users: [], loading: false }) } });
   }
 
+  componentWillUnmount() {
+      this.source.cancel();
+  }
+  
   render() {
     return (
       <div className="classes.root">
@@ -60,7 +70,6 @@ class App extends Component {
               </ListItem>
             ))}
           </List>
-
         </Paper>
       </div>
     );
