@@ -17,7 +17,7 @@ class User extends Component {
   state = { user: {}, loading: false };
 
   constructor() {
-    super(); 
+    super();
     this.CancelToken = axios.CancelToken;
     this.source = this.CancelToken.source();
   }
@@ -26,13 +26,17 @@ class User extends Component {
     this.setState({ user: {}, loading: true });
     const { userId } = this.props.match.params;
     axios
-      .get(`/users/${userId}`, { cancelToken : this.source.token })
+      .get(`/users/${userId}`, { cancelToken: this.source.token })
       .then(user => this.setState({ user: user.data, loading: false }))
-      .catch(error => { if(!axios.isCancel(error)) { this.setState({ users: {}, loading: false }) } });
+      .catch(error => {
+        if (!axios.isCancel(error)) {
+          this.setState({ users: {}, loading: false });
+        }
+      });
   }
 
   componentWillUnmount() {
-      this.source.cancel();
+    this.source.cancel();
   }
 
   render() {
