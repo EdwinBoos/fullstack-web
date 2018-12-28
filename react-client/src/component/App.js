@@ -17,9 +17,9 @@ import AddCircleIcon from "@material-ui/icons/AddCircle";
 
 class App extends Component {
   state = { users: [], loading: false };
-    
+
   constructor() {
-    super(); 
+    super();
     this.CancelToken = axios.CancelToken;
     this.source = this.CancelToken.source();
   }
@@ -27,23 +27,27 @@ class App extends Component {
   componentDidMount() {
     this.setState({ users: [], loading: true });
     axios
-      .get("/users?sort=id&order=desc", { cancelToken : this.source.token })
+      .get("/users?sort=id&order=desc", { cancelToken: this.source.token })
       .then(users => this.setState({ users: users.data, loading: false }))
-      .catch(error => { if(!axios.isCancel(error)) { this.setState({ users: [], loading: false }) } });
+      .catch(error => {
+        if (!axios.isCancel(error)) {
+          this.setState({ users: [], loading: false });
+        }
+      });
   }
 
   componentWillUnmount() {
-      this.source.cancel();
+    this.source.cancel();
   }
-  
+
   render() {
     return (
       <div className="classes.root">
         <AppBar position="static">
           <Toolbar>
-	    <IconButton color="secondary" aria-label="Menu">
-	      <AddCircleIcon/>
-	    </IconButton>
+            <IconButton color="secondary" aria-label="Menu">
+              <AddCircleIcon />
+            </IconButton>
             <Typography color="inherit" variant="h6">
               Users
             </Typography>
