@@ -18,6 +18,9 @@ module.exports = (sequelize, DataTypes) => {
    type: DataTypes.TEXT,
    notEmpty: true
   },
+  photo: {
+    type: DataTypes.BLOB('long')
+  }
  });
 
  return Users;
