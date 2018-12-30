@@ -3,6 +3,7 @@ module.exports = (sequelize, DataTypes) => {
  const Users = sequelize.define('users', {
   id: {
    autoIncrement: true,
+   notEmpty: true,
    primaryKey: true,
    type: DataTypes.INTEGER
   },
@@ -19,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
    notEmpty: true
   },
   photo: {
-    type: DataTypes.BLOB('long')
+    type: DataTypes.BLOB
   }
  });
 

@@ -15,12 +15,13 @@ router.get('/', (req, res, next) =>
  }));
 
 router.get('/:id', (req, res) =>
- models.users.findById(req.params.id).then((user) =>
+ models.users.findByPk(req.params.id).then((user) =>
   res.send(user)));
 
 router.post('/', (req, res, next) =>
  models.users.create({
   username: req.body.username,
+  photo: req.body.photo,
   firstname: req.body.firstname,
   lastname: req.body.lastname
  }));
@@ -35,6 +36,7 @@ router.delete('/:id', (req, res) =>
 router.put('/:id', (req, res) =>
  models.users.update({
   username: req.body.username,
+  photo: req.body.photo,
   firstname: req.body.firstname,
   lastname: req.body.lastname
  }, {

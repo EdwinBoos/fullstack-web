@@ -18,8 +18,7 @@ class User extends Component {
 
   constructor() {
     super();
-    this.CancelToken = axios.CancelToken;
-    this.source = this.CancelToken.source();
+    this.source = axios.CancelToken.source();
   }
 
   componentDidMount() {
