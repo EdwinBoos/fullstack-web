@@ -41,9 +41,9 @@ class User extends Component {
 
   handleEditUserPress = event => {
     const userData = {
-      username: "",
-      firstname: "",
-      lastname: ""
+      username: "updated",
+      firstname: "updated",
+      lastname: "up"
     };
     const { userId } = this.props.match.params;
     this.setState({ user: {}, loading: true });
@@ -70,7 +70,23 @@ class User extends Component {
       });
   };
 
-  handlePictureSelected = event => {};
+  handlePictureSelected = event => {
+    const userData = new FormData();
+    const { userId } = this.props.match.params;
+    userData.append("photo", event.target.files[0]);
+    this.setState({ user: {}, loading: true });
+    axios
+      .put(`/users/${userId}`, userData, { cancelToken: this.source.token })
+      .then(user => {
+        console.log(user.data);
+        this.setState({ user: user.data, loading: false });
+      })
+      .catch(error => {
+        if (!axios.isCancel(error)) {
+          this.setState({ users: {}, loading: false });
+        }
+      });
+  };
 
   render() {
     return (
