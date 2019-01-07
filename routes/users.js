@@ -29,14 +29,13 @@ router.post("/", (req, res, next) =>
 );
 
 router.delete("/:id", (req, res) =>
-models.users
-.destroy({
- where: {
-  id: req.params.id
- }
-})
-.then(() => res.send({})
-)
+ models.users
+ .destroy({
+  where: {
+   id: req.params.id
+  }
+ })
+ .then(() => res.send({}))
 );
 
 router.put("/:id", (req, res) =>
