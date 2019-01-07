@@ -36,7 +36,6 @@ models.users
  }
 })
 .then(() => res.send({}))
-
 )
 );
 
