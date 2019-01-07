@@ -35,7 +35,7 @@ models.users
   id: req.params.id
  }
 })
-.then(() => res.send({}))
+.then(() => res.send({})
 )
 );
 
