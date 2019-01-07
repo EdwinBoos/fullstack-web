@@ -39,7 +39,7 @@ By entering ```node create_tables``` it will look for sequelize-models defined i
 | ------------- |:-------------:| -----| ------------- |
 | /users      | GET | - |Gets all users available |
 | /users/2      | GET | -  |  Gets user with Id 2   |
-| /users |      POST      | "firstname" "lastname" "username" "photo" (blob) | Create a new user
+| /users |      POST      | "firstname" "lastname" "username"  | Create a new user
 | /users/2 |      DELETE      |  -  | Delete user with id 2
 | /users/3 |      PUT      |   "firstname" "lastname" "username" (strings)  | Update user with id 3
 | /users?sort=firstname&order=asc |      GET      |  -  | Sort by firstname (order: ascending) 
