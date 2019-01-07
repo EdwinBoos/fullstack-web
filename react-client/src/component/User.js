@@ -41,9 +41,9 @@ class User extends Component {
 
   handleEditUserPress = event => {
     const userData = {
-      username: "updated",
-      firstname: "updated",
-      lastname: "up"
+      username: "",
+      firstname: "",
+      lastname: ""
     };
     const { userId } = this.props.match.params;
     this.setState({ user: {}, loading: true });
