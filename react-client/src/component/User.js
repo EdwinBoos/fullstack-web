@@ -41,9 +41,9 @@ class User extends Component {
 
   handleEditUserPress = event => {
     const userData = {
-      username: "updated",
-      firstname: "updated",
-      lastname: "up"
+      username: "",
+      firstname: "",
+      lastname: ""
     };
     const { userId } = this.props.match.params;
     this.setState({ user: {}, loading: true });
@@ -78,7 +78,6 @@ class User extends Component {
     axios
       .put(`/users/${userId}`, userData, { cancelToken: this.source.token })
       .then(user => {
-        console.log(user.data);
         this.setState({ user: user.data, loading: false });
       })
       .catch(error => {
