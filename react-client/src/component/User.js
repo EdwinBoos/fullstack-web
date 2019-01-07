@@ -123,4 +123,4 @@ class User extends Component {
   }
 }
 
-e;
+export default User;
