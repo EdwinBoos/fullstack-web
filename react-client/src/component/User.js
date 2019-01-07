@@ -5,6 +5,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardActions from "@material-ui/core/CardActions";
 import IconButton from "@material-ui/core/IconButton";
+import Input from "@material-ui/core/Input";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Fade from "@material-ui/core/Fade";
 import AppBar from "@material-ui/core/AppBar";
@@ -22,8 +23,8 @@ class User extends Component {
   }
 
   componentDidMount() {
-    this.setState({ user: {}, loading: true });
     const { userId } = this.props.match.params;
+    this.setState({ user: {}, loading: true });
     axios
       .get(`/users/${userId}`, { cancelToken: this.source.token })
       .then(user => this.setState({ user: user.data, loading: false }))
@@ -37,6 +38,37 @@ class User extends Component {
   componentWillUnmount() {
     this.source.cancel();
   }
+
+  handleEditUserPress = event => {
+    const userData = {
+      username: "updated",
+      firstname: "updated",
+      lastname: "up"
+    };
+    const { userId } = this.props.match.params;
+    this.setState({ user: {}, loading: true });
+    axios
+      .put(`/users/${userId}`, userData, { cancelToken: this.source.token })
+      .then(user => this.setState({ user: user.data, loading: false }))
+      .catch(error => {
+        if (!axios.isCancel(error)) {
+          this.setState({ users: {}, loading: false });
+        }
+      });
+  };
+
+  handleDeleteUserPress = event => {
+    const { userId } = this.props.match.params;
+    this.setState({ user: {}, loading: true });
+    axios
+      .delete(`/users/${userId}`, { cancelToken: this.source.token })
+      .then(user => this.props.history.push("/"))
+      .catch(error => {
+        if (!axios.isCancel(error)) {
+          this.setState({ users: {}, loading: false });
+        }
+      });
+  };
 
   render() {
     return (
@@ -67,10 +99,11 @@ class User extends Component {
             </Typography>
           </CardContent>
           <CardActions>
+            <Input type="file" />
             <IconButton>
-              <DeleteIcon />
+              <DeleteIcon onClick={this.handleDeleteUserPress} />
             </IconButton>
-            <IconButton>
+            <IconButton onClick={this.handleEditUserPress}>
               <EditIcon />
             </IconButton>
           </CardActions>
