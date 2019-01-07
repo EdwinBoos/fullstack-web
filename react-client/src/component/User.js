@@ -101,7 +101,7 @@ class User extends Component {
             </Typography>
           </CardContent>
           <CardActions>
-            <IconButton raised component="label">
+            <IconButton component="label">
               <AddAPhotoIcon />
               <input
                 accept="image/*"
@@ -123,4 +123,4 @@ class User extends Component {
   }
 }
 
-export default User;
+e;
