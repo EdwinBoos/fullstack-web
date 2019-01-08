@@ -4,7 +4,7 @@ const models = require("../models");
 const sort = require("fast-sort");
 const multer = require("multer");
 const storage = multer.memoryStorage();
-const upload = multer({ storage });
+const upload = multer({storage});
 
 router.get("/", (req, res, next) =>
  models.users.findAll().then(users => {
@@ -41,22 +41,34 @@ router.delete("/:id", (req, res) =>
  .then(() => res.send({}))
 );
 
-router.put("/:id",upload.any(), (req, res) =>
-{
+router.put("/:id/upload", upload.single("photo"), (req, res) => {
  models.users
- .update({
-  username: req.body.username,
-  photo: req.files[0].buffer,
-  firstname: req.body.firstname,
-  lastname: req.body.lastname
- }, {
-  where: {
-   id: req.params.id
-  }
- })
- .then(() =>
-  models.users.findByPk(req.params.id).then(user => res.send(user))
- )
+  .update({
+   photo: req.file.buffer,
+  }, {
+   where: {
+    id: req.params.id
+   }
+  })
+  .then(() =>
+   models.users.findByPk(req.params.id).then(user => res.send(user))
+  )
+});
+
+router.put("/:id", (req, res) => {
+ models.users
+  .update({
+   username: req.body.username,
+   firstname: req.body.firstname,
+   lastname: req.body.lastname
+  }, {
+   where: {
+    id: req.params.id
+   }
+  })
+  .then(() =>
+   models.users.findByPk(req.params.id).then(user => res.send(user))
+  )
 });
 
 module.exports = router;
