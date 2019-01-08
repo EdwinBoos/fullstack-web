@@ -110,14 +110,10 @@ class User extends Component {
             </div>
           </Toolbar>
         </AppBar>
-        <img
-          alt="xd"
-          src={`data:image/jpeg;base64,${this.state.pictureBase64}`}
-        />
         <Card style={{ maxWidth: 1200 }}>
           <CardMedia
+            image={`data:image/jpeg;base64,${this.state.pictureBase64}`}
             style={{ height: 250, paddingTop: "30%" }}
-            image={require("../img/foo.jpg")}
           />
           <CardContent>
             <Typography variant="inherit">
