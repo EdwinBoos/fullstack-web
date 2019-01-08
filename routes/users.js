@@ -2,6 +2,9 @@ const express = require("express");
 const router = express.Router();
 const models = require("../models");
 const sort = require("fast-sort");
+const multer = require("multer");
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
 
 router.get("/", (req, res, next) =>
  models.users.findAll().then(users => {
@@ -38,11 +41,12 @@ router.delete("/:id", (req, res) =>
  .then(() => res.send({}))
 );
 
-router.put("/:id", (req, res) =>
+router.put("/:id",upload.any(), (req, res) =>
+{
  models.users
  .update({
   username: req.body.username,
-  photo: req.body.photo,
+  photo: req.files[0].buffer,
   firstname: req.body.firstname,
   lastname: req.body.lastname
  }, {
@@ -53,6 +57,6 @@ router.put("/:id", (req, res) =>
  .then(() =>
   models.users.findByPk(req.params.id).then(user => res.send(user))
  )
-);
+});
 
 module.exports = router;
