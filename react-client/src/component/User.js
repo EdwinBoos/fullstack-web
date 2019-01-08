@@ -80,7 +80,13 @@ class User extends Component {
         cancelToken: this.source.token
       })
       .then(user => {
-        this.setState({ user: user.data, loading: false });
+        const pictureBase64 = btoa(
+          new Uint8Array(user.data.photo.data).reduce(
+            (data, byte) => data + String.fromCharCode(byte),
+            ""
+          )
+        );
+        this.setState({ user: user.data, loading: false, pictureBase64 });
       })
       .catch(error => {
         if (!axios.isCancel(error)) {
@@ -104,6 +110,10 @@ class User extends Component {
             </div>
           </Toolbar>
         </AppBar>
+        <img
+          alt="xd"
+          src={`data:image/jpeg;base64,${this.state.pictureBase64}`}
+        />
         <Card style={{ maxWidth: 1200 }}>
           <CardMedia
             style={{ height: 250, paddingTop: "30%" }}
