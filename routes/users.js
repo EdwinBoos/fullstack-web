@@ -22,10 +22,10 @@ router.get("/:id", (req, res) =>
  models.users.findByPk(req.params.id).then(user => res.send(user))
 );
 
-router.post("/", (req, res, next) =>
+router.post("/", upload.single("photo"),(req, res, next) =>
  models.users.create({
   username: req.body.username,
-  photo: req.body.photo,
+  photo: req.file.buffer,
   firstname: req.body.firstname,
   lastname: req.body.lastname
  })
