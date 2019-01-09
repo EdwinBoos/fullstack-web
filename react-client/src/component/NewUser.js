@@ -14,46 +14,44 @@ import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
 import DoneIcon from "@material-ui/icons/Done";
 
 class NewUser extends Component {
-  state = { loading : false };
+  state = { loading: false };
 
   constructor() {
     super();
-    this.firstnameTextField = React.createRef(); 
-    this.lastnameTextField = React.createRef();  
-    this.usernameTextField = React.createRef(); 
+    this.firstnameTextField = React.createRef();
+    this.lastnameTextField = React.createRef();
+    this.usernameTextField = React.createRef();
     this.source = axios.CancelToken.source();
   }
 
-  componentDidMount() {
-  }
+  componentDidMount() {}
 
   componentWillUnmount() {
     this.source.cancel();
   }
 
-  handleDonePress = event =>
-  { 
-    const firstname = this.firstnameTextField.current.value
-    const lastname = this.lastnameTextField.current.value
-    const username = this.usernameTextField.current.value
+  handleDonePress = event => {
+    const firstname = this.firstnameTextField.current.value;
+    const lastname = this.lastnameTextField.current.value;
+    const username = this.usernameTextField.current.value;
     const userData = { firstname, lastname, username };
     this.setState({ loading: true });
     axios
       .post(`/users`, userData, { cancelToken: this.source.token })
-      .then((user) => this.setState({ loading: false }))
+      .then(user => this.setState({ loading: false }))
       .catch(error => {
         if (!axios.isCancel(error)) {
           this.setState({ loading: false });
         }
       });
- };
+  };
 
   render() {
     return (
       <div className="classes.root">
         <AppBar position="static">
           <Toolbar>
-           <Typography color="inherit" variant="h6">
+            <Typography color="inherit" variant="h6">
               Add a new user
             </Typography>
             <div>
@@ -65,9 +63,21 @@ class NewUser extends Component {
         </AppBar>
         <Card style={{ maxWidth: 1200 }}>
           <CardContent>
-	     <TextField inputRef={this.firstnameTextField} margin="normal" label="First name" />
-	     <TextField inputRef={this.lastnameTextField} margin="normal" label="Last name" />
-	     <TextField inputRef={this.usernameTextField} margin="normal" label="Username" />
+            <TextField
+              inputRef={this.firstnameTextField}
+              margin="normal"
+              label="First name"
+            />
+            <TextField
+              inputRef={this.lastnameTextField}
+              margin="normal"
+              label="Last name"
+            />
+            <TextField
+              inputRef={this.usernameTextField}
+              margin="normal"
+              label="Username"
+            />
           </CardContent>
           <CardActions>
             <IconButton component="label">
@@ -79,12 +89,12 @@ class NewUser extends Component {
                 style={{ display: "none" }}
               />
             </IconButton>
-            <IconButton onClick={this.handleDonePress} >
+            <IconButton onClick={this.handleDonePress}>
               <DoneIcon />
             </IconButton>
-           </CardActions>
+          </CardActions>
         </Card>
-       </div>
+      </div>
     );
   }
 }
