@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
   },
   photo: {
     type: DataTypes.BLOB,
-   defaultValue : { data : "" }
+    defaultValue : { data : "" }
   }
  });
 
