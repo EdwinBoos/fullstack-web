@@ -19,9 +19,11 @@ module.exports = (sequelize, DataTypes) => {
    type: DataTypes.TEXT,
    notEmpty: true
   },
-  photo: {
-    type: DataTypes.BLOB,
-    defaultValue : { data : "" }
+  photo : { 
+   type: DataTypes.BLOB,
+   defaultValue: {
+    data: ""
+   }
   }
  });
 
