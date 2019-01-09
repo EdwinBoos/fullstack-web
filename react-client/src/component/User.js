@@ -15,7 +15,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 
 class User extends Component {
-  state = { user: {}, loading: false };
+  state = { user: { photo: { data: "" } }, loading: false };
 
   constructor() {
     super();
@@ -24,13 +24,13 @@ class User extends Component {
 
   componentDidMount() {
     const { userId } = this.props.match.params;
-    this.setState({ user: {}, loading: true });
+    this.setState({ user: { photo: { data: "" } }, loading: true });
     axios
       .get(`/users/${userId}`, { cancelToken: this.source.token })
       .then(user => this.setState({ user: user.data, loading: false }))
       .catch(error => {
         if (!axios.isCancel(error)) {
-          this.setState({ users: {}, loading: false });
+          this.setState({ user: { photo: { data: "" } }, loading: false });
         }
       });
   }
@@ -46,13 +46,13 @@ class User extends Component {
       lastname: ""
     };
     const { userId } = this.props.match.params;
-    this.setState({ user: {}, loading: true });
+    this.setState({ user: { photo: { data: "" } }, loading: true });
     axios
       .put(`/users/${userId}`, userData, { cancelToken: this.source.token })
       .then(user => this.setState({ user: user.data, loading: false }))
       .catch(error => {
         if (!axios.isCancel(error)) {
-          this.setState({ users: {}, loading: false });
+          this.setState({ user: { photo: { data: "" } }, loading: false });
         }
       });
   };
@@ -60,12 +60,13 @@ class User extends Component {
   handleDeleteUserPress = event => {
     const { userId } = this.props.match.params;
     this.setState({ user: {}, loading: true });
+    this.setState({ user: { photo: { data: "" } }, loading: true });
     axios
       .delete(`/users/${userId}`, { cancelToken: this.source.token })
       .then(user => this.props.history.push("/"))
       .catch(error => {
         if (!axios.isCancel(error)) {
-          this.setState({ users: {}, loading: false });
+          this.setState({ user: { photo: { data: "" } }, loading: false });
         }
       });
   };
@@ -74,23 +75,15 @@ class User extends Component {
     const userData = new FormData();
     const { userId } = this.props.match.params;
     userData.append("photo", event.target.files[0]);
-    this.setState({ user: {}, loading: true });
+    this.setState({ user: { photo: { data: "" } }, loading: true });
     axios
       .put(`/users/${userId}/upload`, userData, {
         cancelToken: this.source.token
       })
-      .then(user => {
-        const pictureBase64 = btoa(
-          new Uint8Array(user.data.photo.data).reduce(
-            (data, byte) => data + String.fromCharCode(byte),
-            ""
-          )
-        );
-        this.setState({ user: user.data, loading: false, pictureBase64 });
-      })
+      .then(user => this.setState({ user: user.data, loading: false }))
       .catch(error => {
         if (!axios.isCancel(error)) {
-          this.setState({ users: {}, loading: false });
+          this.setState({ user: { photo: { data: "" } }, loading: false });
         }
       });
   };
@@ -112,7 +105,12 @@ class User extends Component {
         </AppBar>
         <Card style={{ maxWidth: 1200 }}>
           <CardMedia
-            image={`data:image/jpeg;base64,${this.state.pictureBase64}`}
+            image={`data:image/jpeg;base64,${btoa(
+              new Uint8Array(this.state.user.photo.data).reduce(
+                (data, byte) => data + String.fromCharCode(byte),
+                ""
+              )
+            )}`}
             style={{ height: 250, paddingTop: "30%" }}
           />
           <CardContent>
