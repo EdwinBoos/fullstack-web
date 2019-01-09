@@ -20,8 +20,10 @@ module.exports = (sequelize, DataTypes) => {
    notEmpty: true
   },
   photo: {
-    type: DataTypes.BLOB,
-   defaultValue : { data : "" }
+   type: DataTypes.BLOB,
+   defaultValue: {
+    data: ""
+   }
   }
  });
 
