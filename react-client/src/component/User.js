@@ -59,7 +59,6 @@ class User extends Component {
 
   handleDeleteUserPress = event => {
     const { userId } = this.props.match.params;
-    this.setState({ user: {}, loading: true });
     this.setState({ user: { photo: { data: "" } }, loading: true });
     axios
       .delete(`/users/${userId}`, { cancelToken: this.source.token })
