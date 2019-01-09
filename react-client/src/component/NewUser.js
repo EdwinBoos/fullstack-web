@@ -14,10 +14,13 @@ import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
 import DoneIcon from "@material-ui/icons/Done";
 
 class NewUser extends Component {
-  state = { };
+  state = { loading : false };
 
   constructor() {
     super();
+    this.firstnameTextField = React.createRef(); 
+    this.lastnameTextField = React.createRef();  
+    this.usernameTextField = React.createRef(); 
     this.source = axios.CancelToken.source();
   }
 
@@ -27,6 +30,23 @@ class NewUser extends Component {
   componentWillUnmount() {
     this.source.cancel();
   }
+
+  handleDonePress = event =>
+  { 
+    const firstname = this.firstnameTextField.current.value
+    const lastname = this.lastnameTextField.current.value
+    const username = this.usernameTextField.current.value
+    const userData = { firstname, lastname, username };
+    this.setState({ loading: true });
+    axios
+      .post(`/users`, userData, { cancelToken: this.source.token })
+      .then((user) => this.setState({ loading: false }))
+      .catch(error => {
+        if (!axios.isCancel(error)) {
+          this.setState({ loading: false });
+        }
+      });
+ };
 
   render() {
     return (
@@ -45,9 +65,9 @@ class NewUser extends Component {
         </AppBar>
         <Card style={{ maxWidth: 1200 }}>
           <CardContent>
-	     <TextField margin="normal" label="First name" />
-	     <TextField margin="normal" label="Last name" />
-	     <TextField margin="normal" label="Username" />
+	     <TextField inputRef={this.firstnameTextField} margin="normal" label="First name" />
+	     <TextField inputRef={this.lastnameTextField} margin="normal" label="Last name" />
+	     <TextField inputRef={this.usernameTextField} margin="normal" label="Username" />
           </CardContent>
           <CardActions>
             <IconButton component="label">
@@ -59,8 +79,8 @@ class NewUser extends Component {
                 style={{ display: "none" }}
               />
             </IconButton>
-            <IconButton>
-              <DoneIcon onClick={this.handleDonePress} />
+            <IconButton onClick={this.handleDonePress} >
+              <DoneIcon />
             </IconButton>
            </CardActions>
         </Card>
