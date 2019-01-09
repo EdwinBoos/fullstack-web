@@ -70,7 +70,7 @@ class NewUser extends Component {
 	     <TextField inputRef={this.usernameTextField} margin="normal" label="Username" />
           </CardContent>
           <CardActions>
-            <IconButton component="label">
+            <IconButton disabled={true} component="label">
               <AddAPhotoIcon />
               <input
                 accept="image/*"
