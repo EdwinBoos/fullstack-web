@@ -38,13 +38,16 @@ class App extends Component {
   componentWillUnmount() {
     this.source.cancel();
   }
+  
+  handleNewUserPress = event => 
+    this.props.history.push("/newUser");
 
   render() {
     return (
       <div className="classes.root">
         <AppBar position="static">
           <Toolbar>
-            <IconButton color="secondary" aria-label="Menu">
+            <IconButton onClick={this.handleNewUserPress} color="secondary" aria-label="Menu">
               <AddCircleIcon />
             </IconButton>
             <Typography color="inherit" variant="h6">
