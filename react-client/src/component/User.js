@@ -73,18 +73,20 @@ class User extends Component {
   handlePictureSelected = event => {
     const userData = new FormData();
     const { userId } = this.props.match.params;
-    userData.append("photo", event.target.files[0]);
-    this.setState({ user: { photo: { data: "" } }, loading: true });
-    axios
-      .put(`/users/${userId}/upload`, userData, {
-        cancelToken: this.source.token
-      })
-      .then(user => this.setState({ user: user.data, loading: false }))
-      .catch(error => {
-        if (!axios.isCancel(error)) {
-          this.setState({ user: { photo: { data: "" } }, loading: false });
-        }
-      });
+    if (event.target.files.length > 0) {
+      userData.append("photo", event.target.files[0]);
+      this.setState({ user: { photo: { data: "" } }, loading: true });
+      axios
+        .put(`/users/${userId}/upload`, userData, {
+          cancelToken: this.source.token
+        })
+        .then(user => this.setState({ user: user.data, loading: false }))
+        .catch(error => {
+          if (!axios.isCancel(error)) {
+            this.setState({ user: { photo: { data: "" } }, loading: false });
+          }
+        });
+    }
   };
 
   render() {
