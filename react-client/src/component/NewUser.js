@@ -14,7 +14,7 @@ import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
 import DoneIcon from "@material-ui/icons/Done";
 
 class NewUser extends Component {
-  state = { loading: false };
+  state = { loading: false, firstname: "", lastname: "", username: "" };
 
   constructor() {
     super();
@@ -38,13 +38,29 @@ class NewUser extends Component {
     this.setState({ loading: true });
     axios
       .post(`/users`, userData, { cancelToken: this.source.token })
-      .then(() => { this.setState(false); })
+      .then(() => {
+        this.setState({
+          loading: false,
+          firstname: "",
+          lastname: "",
+          username: ""
+        });
+      })
       .catch(error => {
         if (!axios.isCancel(error)) {
           this.setState({ loading: false });
         }
       });
   };
+
+  handleFirstNameTextFieldChange = event =>
+    this.setState({ firstname: event.target.value });
+
+  handleLastNameTextFieldChange = event =>
+    this.setState({ lastname: event.target.value });
+
+  handleUserNameTextFieldChange = event =>
+    this.setState({ username: event.target.value });
 
   render() {
     return (
@@ -65,16 +81,22 @@ class NewUser extends Component {
           <CardContent>
             <TextField
               inputRef={this.firstnameTextField}
+              onChange={this.handleFirstNameTextFieldChange}
+              value={this.state.firstname}
               margin="normal"
               label="First name"
             />
             <TextField
               inputRef={this.lastnameTextField}
+              onChange={this.handleLastNameTextFieldChange}
+              value={this.state.lastname}
               margin="normal"
               label="Last name"
             />
             <TextField
               inputRef={this.usernameTextField}
+              onChange={this.handleUserNameTextFieldChange}
+              value={this.state.username}
               margin="normal"
               label="Username"
             />
