@@ -30,7 +30,7 @@ router.post("/", upload.single("photo"), (req, res, next) =>
   photo: (req.file) ? req.file.buffer : void 0,
   firstname: req.body.firstname,
   lastname: req.body.lastname
- })
+ }).then(user => res.send(user.dataValues))
 );
 
 router.delete("/:id", (req, res) =>
