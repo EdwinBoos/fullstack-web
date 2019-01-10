@@ -38,7 +38,7 @@ class NewUser extends Component {
     this.setState({ loading: true });
     axios
       .post(`/users`, userData, { cancelToken: this.source.token })
-      .then(user => this.setState({ loading: false }))
+      .then(() => { this.setState(false); })
       .catch(error => {
         if (!axios.isCancel(error)) {
           this.setState({ loading: false });
