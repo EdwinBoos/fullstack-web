@@ -14,7 +14,15 @@ import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
 import DoneIcon from "@material-ui/icons/Done";
 
 class NewUser extends Component {
-  state = { loading: false, firstname: "", lastname: "", username: "" };
+  state = {
+    firstnameTextFieldValid: false,
+    lastnameTextFieldValid: false,
+    usernameTextFieldValid: false,
+    loading: false,
+    firstname: "",
+    lastname: "",
+    username: ""
+  };
 
   constructor() {
     super();
@@ -23,8 +31,6 @@ class NewUser extends Component {
     this.usernameTextField = React.createRef();
     this.source = axios.CancelToken.source();
   }
-
-  componentDidMount() {}
 
   componentWillUnmount() {
     this.source.cancel();
@@ -41,6 +47,9 @@ class NewUser extends Component {
       .then(() => {
         this.setState({
           loading: false,
+          firstnameTextFieldValid: false,
+          lastnameTextFieldValid: false,
+          usernameTextFieldValid: false,
           firstname: "",
           lastname: "",
           username: ""
@@ -53,14 +62,33 @@ class NewUser extends Component {
       });
   };
 
-  handleFirstNameTextFieldChange = event =>
-    this.setState({ firstname: event.target.value });
+  handleFirstNameTextFieldChange = event => {
+    const valid = new RegExp(/^(?=.{1,50}$)[a-z]+(?:['_.\s][a-z]+)*$/i).test(
+      event.target.value
+    );
+    this.setState({
+      firstname: event.target.value,
+      firstnameTextFieldValid: valid
+    });
+  };
 
-  handleLastNameTextFieldChange = event =>
-    this.setState({ lastname: event.target.value });
+  handleLastNameTextFieldChange = event => {
+    const valid = new RegExp(/^(?=.{1,50}$)[a-z]+(?:['_.\s][a-z]+)*$/i).test(
+      event.target.value
+    );
+    this.setState({
+      lastname: event.target.value,
+      lastnameTextFieldValid: valid
+    });
+  };
 
-  handleUserNameTextFieldChange = event =>
-    this.setState({ username: event.target.value });
+  handleUserNameTextFieldChange = event => {
+    const valid = event.target.value ? true : false;
+    this.setState({
+      username: event.target.value,
+      usernameTextFieldValid: valid
+    });
+  };
 
   render() {
     return (
@@ -111,7 +139,14 @@ class NewUser extends Component {
                 style={{ display: "none" }}
               />
             </IconButton>
-            <IconButton onClick={this.handleDonePress}>
+            <IconButton
+              disabled={
+                !this.state.usernameTextFieldValid ||
+                !this.state.firstnameTextFieldValid ||
+                !this.state.lastnameTextFieldValid
+              }
+              onClick={this.handleDonePress}
+            >
               <DoneIcon />
             </IconButton>
           </CardActions>
