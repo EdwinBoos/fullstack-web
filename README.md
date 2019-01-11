@@ -1,5 +1,5 @@
 
-# Node Server (Express + Sqlite + Sequelize + Nodemon)
+# Node Server (Backend)
 
 <h3> Install dependencies </h3>
 

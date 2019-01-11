@@ -1,4 +1,4 @@
-# react
+# React Client (Frontend)
 <h3> Install dependencies </h3> 
 
 ``` npm install ```
