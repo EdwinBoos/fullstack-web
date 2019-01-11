@@ -19,6 +19,9 @@ class NewUser extends Component {
     lastnameTextFieldValid: false,
     usernameTextFieldValid: false,
     loading: false,
+    firstnameLabel: "First name",
+    lastnameLabel: "Last name",
+    usernameLabel: "User name",
     firstname: "",
     lastname: "",
     username: ""
@@ -50,6 +53,9 @@ class NewUser extends Component {
           firstnameTextFieldValid: false,
           lastnameTextFieldValid: false,
           usernameTextFieldValid: false,
+          firstnameLabel: "First name",
+          lastnameLabel: "Last name",
+          usernameLabel: "User name",
           firstname: "",
           lastname: "",
           username: ""
@@ -57,7 +63,11 @@ class NewUser extends Component {
       })
       .catch(error => {
         if (!axios.isCancel(error)) {
-          this.setState({ loading: false });
+          this.setState({
+            loading: false,
+            usernameTextFieldValid: false,
+            usernameLabel: "User name already taken"
+          });
         }
       });
   };
@@ -108,28 +118,28 @@ class NewUser extends Component {
         <Card style={{ maxWidth: 1200 }}>
           <CardContent>
             <TextField
-	      error={!this.state.firstnameTextFieldValid}
+              error={!this.state.firstnameTextFieldValid}
               inputRef={this.firstnameTextField}
               onChange={this.handleFirstNameTextFieldChange}
               value={this.state.firstname}
               margin="normal"
-              label="First name"
+              label={this.state.firstnameLabel}
             />
             <TextField
-	      error={!this.state.lastnameTextFieldValid}
+              error={!this.state.lastnameTextFieldValid}
               inputRef={this.lastnameTextField}
               onChange={this.handleLastNameTextFieldChange}
               value={this.state.lastname}
               margin="normal"
-              label="Last name"
+              label={this.state.lastnameLabel}
             />
             <TextField
-	      error={!this.state.usernameTextFieldValid}
+              error={!this.state.usernameTextFieldValid}
               inputRef={this.usernameTextField}
               onChange={this.handleUserNameTextFieldChange}
               value={this.state.username}
               margin="normal"
-              label="Username"
+              label={this.state.usernameLabel}
             />
           </CardContent>
           <CardActions>

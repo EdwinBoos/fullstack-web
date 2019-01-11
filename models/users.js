@@ -17,8 +17,8 @@ module.exports = (sequelize, DataTypes) => {
   },
   username: {
    type: DataTypes.TEXT,
-   unique : true,
-   notEmpty: true
+   notEmpty: true,
+   unique : { args : true, fields : [sequelize.fn('lower', sequelize.col('username'))]} 
   },
   photo : { 
    type: DataTypes.BLOB,
