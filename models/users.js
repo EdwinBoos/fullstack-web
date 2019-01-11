@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
   },
   username: {
    type: DataTypes.TEXT,
+   unique : true,
    notEmpty: true
   },
   photo : { 

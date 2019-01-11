@@ -108,6 +108,7 @@ class NewUser extends Component {
         <Card style={{ maxWidth: 1200 }}>
           <CardContent>
             <TextField
+	      error={!this.state.firstnameTextFieldValid}
               inputRef={this.firstnameTextField}
               onChange={this.handleFirstNameTextFieldChange}
               value={this.state.firstname}
@@ -115,6 +116,7 @@ class NewUser extends Component {
               label="First name"
             />
             <TextField
+	      error={!this.state.lastnameTextFieldValid}
               inputRef={this.lastnameTextField}
               onChange={this.handleLastNameTextFieldChange}
               value={this.state.lastname}
@@ -122,6 +124,7 @@ class NewUser extends Component {
               label="Last name"
             />
             <TextField
+	      error={!this.state.usernameTextFieldValid}
               inputRef={this.usernameTextField}
               onChange={this.handleUserNameTextFieldChange}
               value={this.state.username}
