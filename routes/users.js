@@ -13,12 +13,13 @@ router.get("/", (req, res, next) => {
   ];
  }
  models.users.findAll(options).then(users => res.send(users))
+  .catch(error => next(error))
 });
 
-router.get("/:id", (req, res) =>
+router.get("/:id", (req, res, next) =>
  models.users.findByPk(req.params.id).then(user =>
   res.send(user)
- )
+ ).catch(error => next(error))
 );
 
 router.post("/", upload.single("photo"), (req, res, next) =>
@@ -28,9 +29,10 @@ router.post("/", upload.single("photo"), (req, res, next) =>
   firstname: req.body.firstname,
   lastname: req.body.lastname
  }).then(user => res.send(user.dataValues))
+ .catch(error => next(error))
 );
 
-router.delete("/:id", (req, res) =>
+router.delete("/:id", (req, res, next) =>
  models.users
  .destroy({
   where: {
@@ -38,9 +40,10 @@ router.delete("/:id", (req, res) =>
   }
  })
  .then(() => res.send({}))
+ .catch(error => next(error))
 );
 
-router.put("/:id/upload", upload.single("photo"), (req, res) => {
+router.put("/:id/upload", upload.single("photo"), (req, res, next) => {
  models.users
   .update({
    photo: req.file.buffer,
@@ -51,10 +54,10 @@ router.put("/:id/upload", upload.single("photo"), (req, res) => {
   })
   .then(() =>
    models.users.findByPk(req.params.id).then(user => res.send(user))
-  )
+  ).catch(error => next(error))
 });
 
-router.put("/:id", (req, res) => {
+router.put("/:id", (req, res, next) => {
  models.users
   .update({
    username: req.body.username,
@@ -67,7 +70,7 @@ router.put("/:id", (req, res) => {
   })
   .then(() =>
    models.users.findByPk(req.params.id).then(user => res.send(user))
-  )
+  ).catch(error => next(error))
 });
 
 module.exports = router;
