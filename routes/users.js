@@ -1,22 +1,19 @@
 const express = require("express");
 const router = express.Router();
 const models = require("../models");
-const sort = require("fast-sort");
 const multer = require("multer");
 const storage = multer.memoryStorage();
 const upload = multer({storage});
 
-router.get("/", (req, res, next) =>
- models.users.findAll().then(users => {
-  if (req.query.sort) {
-   const sortObject = {};
-   const order = req.query.order || "asc";
-   sortObject[order] = req.query.sort;
-   users = sort(users).by([sortObject]);
-  }
-  res.send(users);
- })
-);
+router.get("/", (req, res, next) => {
+ const options = {};
+ if (req.query.sort) {
+  options["order"] = [
+   [req.query.sort, req.query.order]
+  ];
+ }
+ models.users.findAll(options).then(users => res.send(users))
+});
 
 router.get("/:id", (req, res) =>
  models.users.findByPk(req.params.id).then(user =>
