@@ -43,23 +43,10 @@ router.delete("/:id", (req, res, next) =>
  .catch(error => next(error))
 );
 
-router.put("/:id/upload", upload.single("photo"), (req, res, next) => {
+router.put("/:id", upload.single("photo"), (req, res, next) => {
  models.users
   .update({
-   photo: req.file.buffer,
-  }, {
-   where: {
-    id: req.params.id
-   }
-  })
-  .then(() =>
-   models.users.findByPk(req.params.id).then(user => res.send(user))
-  ).catch(error => next(error))
-});
-
-router.put("/:id", (req, res, next) => {
- models.users
-  .update({
+   photo: (req.file) ? req.file.buffer : void 0,
    username: req.body.username,
    firstname: req.body.firstname,
    lastname: req.body.lastname

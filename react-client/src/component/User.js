@@ -77,7 +77,7 @@ class User extends Component {
       userData.append("photo", event.target.files[0]);
       this.setState({ user: { photo: { data: "" } }, loading: true });
       axios
-        .put(`/users/${userId}/upload`, userData, {
+        .put(`/users/${userId}`, userData, {
           cancelToken: this.source.token
         })
         .then(user => this.setState({ user: user.data, loading: false }))
