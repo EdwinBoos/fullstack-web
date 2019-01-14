@@ -66,7 +66,7 @@ class NewUser extends Component {
           this.setState({
             loading: false,
             usernameTextFieldValid: false,
-            usernameLabel: "User name already taken"
+            usernameLabel: error.request.responseText
           });
         }
       });
