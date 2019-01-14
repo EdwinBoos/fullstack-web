@@ -3,9 +3,16 @@ const sequelize = require("sequelize");
 const router = express.Router();
 const models = require("../models");
 const multer = require("multer");
+const path = require("path");
 const storage = multer.memoryStorage();
 const upload = multer({
- storage
+ storage,
+ fileFilter: (req, file, callback) => {
+  const extension = path.extname(file.originalname);
+  if (extension !== '.png' && extension !== '.jpg' && extension !== '.gif' && extension !== '.jpeg')
+   return callback(new Error("Only pictures allowed"), false)
+  return callback(null, true);
+ }
 });
 
 router.get("/", (req, res, next) => {
