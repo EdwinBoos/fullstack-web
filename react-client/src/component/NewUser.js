@@ -22,6 +22,7 @@ class NewUser extends Component {
     firstnameLabel: "First name",
     lastnameLabel: "Last name",
     usernameLabel: "User name",
+    filename: "",
     firstname: "",
     lastname: "",
     username: ""
@@ -29,6 +30,7 @@ class NewUser extends Component {
 
   constructor() {
     super();
+    this.fileBlob = void 0;
     this.firstnameTextField = React.createRef();
     this.lastnameTextField = React.createRef();
     this.usernameTextField = React.createRef();
@@ -40,10 +42,11 @@ class NewUser extends Component {
   }
 
   handleDonePress = event => {
-    const firstname = this.firstnameTextField.current.value;
-    const lastname = this.lastnameTextField.current.value;
-    const username = this.usernameTextField.current.value;
-    const userData = { firstname, lastname, username };
+    const userData = new FormData();
+    userData.append("photo", this.fileBlob);
+    userData.append("firstname", this.firstnameTextField.current.value);
+    userData.append("lastname", this.lastnameTextField.current.value);
+    userData.append("username", this.usernameTextField.current.value);
     this.setState({ loading: true });
     axios
       .post(`/users`, userData, { cancelToken: this.source.token })
@@ -56,6 +59,7 @@ class NewUser extends Component {
           firstnameLabel: "First name",
           lastnameLabel: "Last name",
           usernameLabel: "User name",
+          filename: "",
           firstname: "",
           lastname: "",
           username: ""
@@ -100,6 +104,13 @@ class NewUser extends Component {
     });
   };
 
+  handlePictureSelected = event => {
+    if (event.target.files.length > 0) {
+      this.fileBlob = event.target.files[0];
+      this.setState({ filename: event.target.files[0].name });
+    }
+  };
+
   render() {
     return (
       <div className="classes.root">
@@ -117,6 +128,8 @@ class NewUser extends Component {
         </AppBar>
         <Card style={{ maxWidth: 1200 }}>
           <CardContent>
+            <Typography color="inherit">{this.state.filename}</Typography>
+
             <TextField
               error={!this.state.firstnameTextFieldValid}
               inputRef={this.firstnameTextField}
@@ -143,7 +156,7 @@ class NewUser extends Component {
             />
           </CardContent>
           <CardActions>
-            <IconButton disabled={true} component="label">
+            <IconButton component="label">
               <AddAPhotoIcon />
               <input
                 accept="image/*"
