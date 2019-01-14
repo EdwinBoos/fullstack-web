@@ -1,9 +1,12 @@
 const express = require("express");
+const sequelize = require("sequelize");
 const router = express.Router();
 const models = require("../models");
 const multer = require("multer");
 const storage = multer.memoryStorage();
-const upload = multer({storage});
+const upload = multer({
+ storage
+});
 
 router.get("/", (req, res, next) => {
  const options = {};
@@ -29,6 +32,7 @@ router.post("/", upload.single("photo"), (req, res, next) =>
   firstname: req.body.firstname,
   lastname: req.body.lastname
  }).then(user => res.send(user.dataValues))
+ .catch(sequelize.UniqueConstraintError, (error) => res.status(500).send("User name already taken"))
  .catch(error => next(error))
 );
 
