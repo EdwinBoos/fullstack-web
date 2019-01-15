@@ -48,6 +48,24 @@ By entering ```node create_tables``` it will look for sequelize-models defined i
 | /users/3 |      PUT      |   "firstname" "lastname" "username" "photo" (blob)  | The whole list of users after update of specific object with id 3 |
 | /users/3?sort=id&order=desc |      PUT      |   "firstname" "lastname" "username" "photo" (blob)  | The whole list of users after update of specific object with id 3 and sorted by id (order: descending) |
 
+<h3> Why are there two different put and delete routes? </h3>
+
+ ``` PUT /users/3 ```
+ 
+ ``` PUT /users/3/detail  ```
+
+Its very simple both make the same they both do update the record with the id 3, but they are giving back a different response.
+The first example should be best used, when a list gets updated, because it will respond with the whole array of users after the update.
+The second example should be best used, when we don't need all records, just one object the updated one to display.
+
+``` DELETE /users/3 ```
+ 
+``` DELETE /users/3/detail  ```
+
+The very same concept is implemented in Delete. 
+The first example, will give back all records of users after deleting the user with 3.
+The second exmaple, will give back a empty object and should be used when we don't need to display a list.
+
 
 
 
