@@ -91,7 +91,10 @@ class App extends Component {
                 <ListItemIcon>
                   <AccountCircleIcon> </AccountCircleIcon>
                 </ListItemIcon>
-                <ListItemText secondary={user.id} primary={user.username} />
+                <ListItemText
+                  secondary={`${user.firstname} ${user.lastname}`}
+                  primary={user.username}
+                />
                 <ListItemSecondaryAction>
                   <IconButton
                     key={user.id}
