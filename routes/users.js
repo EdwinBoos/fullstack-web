@@ -52,7 +52,7 @@ router.post("/", upload.single("photo"), (req, res, next) =>
  .catch(error => next(error))
 );
 
-router.delete("/:id/noresponse", (req, res, next) =>
+router.delete("/:id/detail", (req, res, next) =>
  models.users
  .destroy({
   where: {
@@ -82,6 +82,30 @@ router.delete("/:id", (req, res, next) =>
 );
 
 router.put("/:id", upload.single("photo"), (req, res, next) => {
+ models.users
+  .update({
+   photo: (req.file) ? req.file.buffer : void 0,
+   username: req.body.username,
+   firstname: req.body.firstname,
+   lastname: req.body.lastname
+  }, {
+   where: {
+    id: req.params.id
+   }
+  })
+  .then(() => {
+   const options = {};
+   if (req.query.sort) {
+    options["order"] = [
+     [req.query.sort, req.query.order]
+    ];
+   }
+   models.users.findAll(options).then(users => res.send(users))
+    .catch(error => next(error))
+  }).catch(error => next(error))
+});
+
+router.put("/:id/detail", upload.single("photo"), (req, res, next) => {
  models.users
   .update({
    photo: (req.file) ? req.file.buffer : void 0,
