@@ -66,6 +66,11 @@ The very same concept is implemented in Delete.
 The first example, will give back all records of users after deleting the user with 3.
 The second exmaple, will give back a empty object and should be used when we don't need to display a list.
 
+<h3> What type of extension is allowed for the field photo </h3>
+
+ ``` .jpeg, .jpg, .png, .gif ```
+ 
+ All other file types which gets updated will result in a error called by multer (see also: https://github.com/EdwinBoos/fullstack-web/blob/master/routes/users.js#L10)
 
 
 
