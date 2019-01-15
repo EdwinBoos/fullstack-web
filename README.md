@@ -3,7 +3,11 @@
 
 <h3> Install dependencies </h3>
 
-``` npm install ``` 
+``` npm install ```
+
+<h3>Start server</h3>
+
+  ``` npm start``` 
 
 <h3>Start in debugging mode</h3>
 
@@ -15,13 +19,7 @@
 
   ``` set DEBUG=myapp:* & npm start``` 
 
-
-<h3>Start without debugging mode</h3>
-
-  ``` npm start``` 
-
-
-Open up following URL http://localhost:3001 in your browser
+Server is running on port 3001, you can visit by entering http://localhost:3001 in your browser.
 
 
 <h3> Create sqlite databases </h3>
@@ -35,14 +33,15 @@ By entering ```node create_tables``` it will look for sequelize-models defined i
 
 <h3> Route /users </h3>
 
-| Route        | HTTP-Method | Accepted body fields | Result |
+| Route        | HTTP-Method | Accepted body fields | Response |
 | ------------- |:-------------:| -----| ------------- |
-| /users      | GET | - |Gets all users available |
-| /users/2      | GET | -  |  Gets user with Id 2   |
-| /users |      POST      | "firstname" "lastname" "username"  | Create a new user
+| /users      | GET | - | Returns an array with users |
+| /users/2      | GET | -  |  Returns a user object with Id 2   |
+| /users?sort=firstname&order=asc |      GET      |  -  | Returns an array with users sorted by firstname (order: ascending) 
+| /users?sort=id&order=desc |      GET      |  -  | Returns an array with users sorted by id (order: descending) 
+| /users?sort=username |      GET      |  -  | Returns an array with users sorted by username (default: ascending) 
+| /users |      POST      | "firstname" "lastname" "username", "photo" (blob)  | The created user object
 | /users/2 |      DELETE      |  -  | Delete user with id 2
 | /users/3 |      PUT      |   "firstname" "lastname" "username" (strings)  | Update user with id 3
-| /users?sort=firstname&order=asc |      GET      |  -  | Sort by firstname (order: ascending) 
-| /users?sort=id&order=desc |      GET      |  -  | Sort by id (order: descending) 
-| /users?sort=username |      GET      |  -  | Sort by username (default: ascending) 
+
 
