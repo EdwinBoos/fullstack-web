@@ -11,7 +11,6 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
-import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 
 class User extends Component {
@@ -50,19 +49,6 @@ class User extends Component {
     axios
       .put(`/users/${userId}`, userData, { cancelToken: this.source.token })
       .then(user => this.setState({ user: user.data, loading: false }))
-      .catch(error => {
-        if (!axios.isCancel(error)) {
-          this.setState({ user: { photo: { data: "" } }, loading: false });
-        }
-      });
-  };
-
-  handleDeleteUserPress = event => {
-    const { userId } = this.props.match.params;
-    this.setState({ user: { photo: { data: "" } }, loading: true });
-    axios
-      .delete(`/users/${userId}`, { cancelToken: this.source.token })
-      .then(user => this.props.history.push("/"))
       .catch(error => {
         if (!axios.isCancel(error)) {
           this.setState({ user: { photo: { data: "" } }, loading: false });
@@ -131,9 +117,6 @@ class User extends Component {
                 type="file"
                 style={{ display: "none" }}
               />
-            </IconButton>
-            <IconButton>
-              <DeleteIcon onClick={this.handleDeleteUserPress} />
             </IconButton>
             <IconButton onClick={this.handleEditUserPress}>
               <EditIcon />
