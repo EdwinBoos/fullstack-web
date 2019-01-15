@@ -15,9 +15,9 @@ const upload = multer({
   const jpegExtension = ".jpeg";
 
   if (extension.toLowerCase() !== pngExtension &&
-      extension.toLowerCase() !== jpgExtension &&
-      extension.toLowerCase() !== gifExtension &&
-      extension.toLowerCase() !== jpegExtension) {
+   extension.toLowerCase() !== jpgExtension &&
+   extension.toLowerCase() !== gifExtension &&
+   extension.toLowerCase() !== jpegExtension) {
    return callback(new Error("Only pictures allowed"))
   }
   return callback(null, true);
@@ -51,6 +51,15 @@ router.post("/", upload.single("photo"), (req, res, next) =>
  .catch(sequelize.UniqueConstraintError, (error) => res.status(500).send("User name already taken"))
  .catch(error => next(error))
 );
+
+router.delete("/:id/noresponse", (req, res, next) =>
+ models.users
+ .destroy({
+  where: {
+   id: req.params.id
+  }
+ })
+ .then(() => res.send({})));
 
 router.delete("/:id", (req, res, next) =>
  models.users
