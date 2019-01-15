@@ -47,7 +47,7 @@ class User extends Component {
     const { userId } = this.props.match.params;
     this.setState({ user: { photo: { data: "" } }, loading: true });
     axios
-      .put(`/users/${userId}`, userData, { cancelToken: this.source.token })
+      .put(`/users/${userId}/detail`, userData, { cancelToken: this.source.token })
       .then(user => this.setState({ user: user.data, loading: false }))
       .catch(error => {
         if (!axios.isCancel(error)) {
@@ -63,7 +63,7 @@ class User extends Component {
       userData.append("photo", event.target.files[0]);
       this.setState({ user: { photo: { data: "" } }, loading: true });
       axios
-        .put(`/users/${userId}`, userData, {
+        .put(`/users/${userId}/detail`, userData, {
           cancelToken: this.source.token
         })
         .then(user => this.setState({ user: user.data, loading: false }))
