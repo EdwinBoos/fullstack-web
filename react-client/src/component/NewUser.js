@@ -128,8 +128,6 @@ class NewUser extends Component {
         </AppBar>
         <Card style={{ maxWidth: 1200 }}>
           <CardContent>
-            <Typography color="inherit">{this.state.filename}</Typography>
-
             <TextField
               error={!this.state.firstnameTextFieldValid}
               inputRef={this.firstnameTextField}
@@ -175,6 +173,7 @@ class NewUser extends Component {
             >
               <DoneIcon />
             </IconButton>
+            <Typography color="inherit">{this.state.filename}</Typography>
           </CardActions>
         </Card>
       </div>
