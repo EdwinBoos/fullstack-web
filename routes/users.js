@@ -9,7 +9,15 @@ const upload = multer({
  storage,
  fileFilter: (req, file, callback) => {
   const extension = path.extname(file.originalname);
-  if (extension !== '.png' && extension !== '.jpg' && extension !== '.gif' && extension !== '.jpeg') {
+  const gifExtension = ".gif";
+  const jpgExtension = ".jpg";
+  const pngExtension = ".png";
+  const jpegExtension = ".jpeg";
+
+  if (extension.toLowerCase() !== pngExtension &&
+      extension.toLowerCase() !== jpgExtension &&
+      extension.toLowerCase() !== gifExtension &&
+      extension.toLowerCase() !== jpegExtension) {
    return callback(new Error("Only pictures allowed"))
   }
   return callback(null, true);
