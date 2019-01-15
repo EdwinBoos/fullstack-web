@@ -41,10 +41,10 @@ By entering ```node create_tables``` it will look for sequelize-models defined i
 | /users?sort=id&order=desc |      GET      |  -  | Returns an array with users sorted by id (order: descending) 
 | /users?sort=username |      GET      |  -  | Returns an array with users sorted by username (default: ascending) 
 | /users |      POST      | "firstname" "lastname" "username" (unique) "photo" (blob)  | The created user object
-| /users/2 |      DELETE      |  -  | The new list of users without user with id 2 |
-| /users/2/?sort=id&order=desc |      DELETE      |  -  | The new list of users without user with id 2 and sorted by id (order: descending)|
+| /users/2 |      DELETE      |  -  | The new list of users excluding user with id 2 |
+| /users/2/?sort=id&order=desc |      DELETE      |  -  | The new list of users excluding user with id 2 and sorted by id (order: descending)|
 | /users/2/detail |      DELETE      |  -  | Empty Object |
-| /users/2/detail |      PUT      |  "firstname" "lastname" "username" (unique) "photo" (blob)  | The updated object iwth id 2  |
+| /users/2/detail |      PUT      |  "firstname" "lastname" "username" (unique) "photo" (blob)  | The updated object with id 2  |
 | /users/3 |      PUT      |   "firstname" "lastname" "username" "photo" (blob)  | The whole list of users after update of specific object with id 3 |
 | /users/3?sort=id&order=desc |      PUT      |   "firstname" "lastname" "username" "photo" (blob)  | The whole list of users after update of specific object with id 3 and sorted by id (order: descending) |
 
