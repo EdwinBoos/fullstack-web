@@ -44,7 +44,6 @@ By entering ```node create_tables``` it will look for sequelize-models defined i
 | /users/2 |      DELETE      |  -  | The new list of users without user with id 2 |
 | /users/2/?sort=id&order=desc |      DELETE      |  -  | The new list of users without user with id 2 and sorted by id (order: descending)|
 | /users/2/detail |      DELETE      |  -  | Empty Object |
-
 | /users/2/detail |      PUT      |  "firstname" "lastname" "username" (unique) "photo" (blob)  |  |
 | /users/3 |      PUT      |   "firstname" "lastname" "username" "photo" (blob)  | The whole list of users after update of specific object with id 3 |
 | /users/3?sort=id&order=desc |      PUT      |   "firstname" "lastname" "username" "photo" (blob)  | The whole list of users after update of specific object with id 3 and sorted by id (order: descending) |
