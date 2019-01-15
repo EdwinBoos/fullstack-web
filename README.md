@@ -63,7 +63,7 @@ The second example should be best used, when we don't need all records, just one
 ``` DELETE /users/3/detail  ```
 
 The very same concept is implemented in Delete. 
-The first example, will give back all records of users after deleting the user with 3.
+The first example, will give back all records of users after deleting the user with id 3.
 The second exmaple, will give back a empty object and should be used when we don't need to display a list.
 
 <h3> What type of extension is allowed for the field photo </h3>
@@ -71,6 +71,9 @@ The second exmaple, will give back a empty object and should be used when we don
  ``` .jpeg, .jpg, .png, .gif ```
  
  All other file types which gets updated will result in a error called by multer (see also: https://github.com/EdwinBoos/fullstack-web/blob/master/routes/users.js#L10)
-
-
+ 
+ <h3> How did you uploaded a picture in React ? </h3>
+ 
+ See here: https://github.com/EdwinBoos/fullstack-web/blob/master/react-client/src/component/User.js#L61 for updating a photo with put.
+ See here: https://github.com/EdwinBoos/fullstack-web/blob/master/react-client/src/component/NewUser.js#L45 for posting a whole new user with photo.
 
