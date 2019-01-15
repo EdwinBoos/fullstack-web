@@ -9,8 +9,9 @@ const upload = multer({
  storage,
  fileFilter: (req, file, callback) => {
   const extension = path.extname(file.originalname);
-  if (extension !== '.png' && extension !== '.jpg' && extension !== '.gif' && extension !== '.jpeg')
-   return callback(new Error("Only pictures allowed"), false)
+  if (extension !== '.png' && extension !== '.jpg' && extension !== '.gif' && extension !== '.jpeg') {
+   return callback(new Error("Only pictures allowed"))
+  }
   return callback(null, true);
  }
 });
@@ -50,7 +51,16 @@ router.delete("/:id", (req, res, next) =>
    id: req.params.id
   }
  })
- .then(() => res.send({}))
+ .then(() => {
+  const options = {};
+  if (req.query.sort) {
+   options["order"] = [
+    [req.query.sort, req.query.order]
+   ];
+  }
+  models.users.findAll(options).then(users => res.send(users))
+   .catch(error => next(error))
+ })
  .catch(error => next(error))
 );
 
