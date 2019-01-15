@@ -54,7 +54,7 @@ By entering ```node create_tables``` it will look for sequelize-models defined i
  
  ``` PUT /users/3/detail  ```
 
-Its very simple both will do the same they both do update the record with the id 3, but they are giving back a different response.
+Its very simple both will do the same they both update the record with the id 3, but they are giving back a different response.
 The first example should be best used, when a list gets updated, because it will respond with the whole array of users after the update of user with id 3.
 The second example should be best used, when we don't need all records, just one object the updated one to display for example on a detail page of users.
 
