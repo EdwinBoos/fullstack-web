@@ -19,7 +19,7 @@
 
   ``` set DEBUG=myapp:* & npm start``` 
 
-Server is running on port 3001, you can visit by entering http://localhost:3001 in your browser.
+Server is running on port 3001, you can visit the server by entering http://localhost:3001 in your browser.
 
 
 <h3> Create sqlite databases </h3>
