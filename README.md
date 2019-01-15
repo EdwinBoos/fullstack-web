@@ -56,7 +56,7 @@ By entering ```node create_tables``` it will look for sequelize-models defined i
 
 Its very simple both make the same they both do update the record with the id 3, but they are giving back a different response.
 The first example should be best used, when a list gets updated, because it will respond with the whole array of users after the update of user with id 3.
-The second example should be best used, when we don't need all records, just one object the updated one to display.
+The second example should be best used, when we don't need all records, just one object the updated one to display for example on a detail page of users.
 
 ``` DELETE /users/3 ```
  
@@ -64,7 +64,7 @@ The second example should be best used, when we don't need all records, just one
 
 The very same concept is implemented in Delete. 
 The first example, will give back all records of users after deleting the user with id 3.
-The second exmaple, will give back a empty object and should be used when we don't need to display a list.
+The second example, will give back a empty object and should be used when we don't need to display a list for example on a detail page of users.
 
 <h3> What type of extension is allowed for the field photo </h3>
 
