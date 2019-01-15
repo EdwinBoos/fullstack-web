@@ -74,6 +74,6 @@ The second example, will give back a empty object and should be used when we don
  
  <h3> How did you upload a picture with React ? </h3>
  
- See here: https://github.com/EdwinBoos/fullstack-web/blob/master/react-client/src/component/User.js#L61 for updating a photo with put.
+ See here: https://github.com/EdwinBoos/fullstack-web/blob/master/react-client/src/component/User.js#L61 here you will se a example of a put request.
 
 
