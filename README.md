@@ -72,8 +72,8 @@ The second exmaple, will give back a empty object and should be used when we don
  
  All other file types which gets updated will result in a error called by multer (see also: https://github.com/EdwinBoos/fullstack-web/blob/master/routes/users.js#L10)
  
- <h3> How did you uploaded a picture in React ? </h3>
+ <h3> How did you uploaded a picture with React ? </h3>
  
  See here: https://github.com/EdwinBoos/fullstack-web/blob/master/react-client/src/component/User.js#L61 for updating a photo with put.
- See here: https://github.com/EdwinBoos/fullstack-web/blob/master/react-client/src/component/NewUser.js#L45 for posting a whole new user with photo.
+
 
