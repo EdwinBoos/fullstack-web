@@ -2,9 +2,11 @@ import React, { Component } from "react";
 import axios from "axios";
 import Paper from "@material-ui/core/Paper";
 import { Link } from "react-router-dom";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import LinearProgress from "@material-ui/core/LinearProgress";
 import Fade from "@material-ui/core/Fade";
+import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
+import Fab from "@material-ui/core/Fab";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -59,27 +61,18 @@ class App extends Component {
 
   render() {
     return (
-      <div className="classes.root">
+      <div>
         <AppBar position="static">
           <Toolbar>
-            <IconButton
-              onClick={this.handleNewUserPress}
-              color="secondary"
-              aria-label="Menu"
-            >
-              <AddCircleIcon />
-            </IconButton>
             <Typography color="inherit" variant="h6">
               Users
             </Typography>
-            <div>
-              <Fade in={this.state.loading}>
-                <CircularProgress color="secondary" />
-              </Fade>
-            </div>
           </Toolbar>
         </AppBar>
         <Paper>
+          <Fade in={this.state.loading}>
+            <LinearProgress color="secondary" />
+          </Fade>
           <List style={{ overflow: "auto" }}>
             {this.state.users.map((user, index) => (
               <ListItem
@@ -108,6 +101,15 @@ class App extends Component {
               </ListItem>
             ))}
           </List>
+          <Grid container justify="center">
+            <Fab
+              onClick={this.handleNewUserPress}
+              color="secondary"
+              aria-label="Menu"
+            >
+              <AddCircleIcon />
+            </Fab>
+          </Grid>
         </Paper>
       </div>
     );
