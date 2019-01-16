@@ -72,7 +72,7 @@ The second example, will give back a empty object and should be used when we don
  
  All other file types which gets updated will result in a error called by multer (see also: https://github.com/EdwinBoos/fullstack-web/blob/master/routes/users.js#L10)
  
- <h3> How did you upload a picture with React ? </h3>
+ <h3> How to upload a picture to the node server with React ? </h3>
  
  See here: https://github.com/EdwinBoos/fullstack-web/blob/master/react-client/src/component/User.js#L61 its a example of a put with axios and the FormData API.
 
