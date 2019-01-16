@@ -54,7 +54,7 @@ By entering ```node create_tables``` it will look for sequelize-models defined i
  
  ``` PUT /users/3/detail  ```
 
-Its very simple both will do the same they both update the record with the id 3, but they are giving back a different response.
+Its very simple, both will do the same they both update the record with the id 3, but they are giving back a different response.
 The first example should be best used, when a list gets updated, because it will respond with the whole array of users after the update of user with id 3.
 The second example should be best used, when we don't need all records, just one object the updated one to display for example on a detail page of users.
 
@@ -74,6 +74,6 @@ The second example, will give back a empty object and should be used when we don
  
  <h3> How did you upload a picture with React ? </h3>
  
- See here: https://github.com/EdwinBoos/fullstack-web/blob/master/react-client/src/component/User.js#L61 here you will se a example of a put request.
+ See here: https://github.com/EdwinBoos/fullstack-web/blob/master/react-client/src/component/User.js#L61 its a example of a put with axios and the FormData API.
 
 
