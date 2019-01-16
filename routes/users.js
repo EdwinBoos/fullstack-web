@@ -103,6 +103,7 @@ router.put("/:id", upload.single("photo"), (req, res, next) => {
    models.users.findAll(options).then(users => res.send(users))
     .catch(error => next(error))
   }).catch(error => next(error))
+  .catch(sequelize.UniqueConstraintError, (error) => res.status(500).send("User name already taken"))
 });
 
 router.put("/:id/detail", upload.single("photo"), (req, res, next) => {
@@ -120,6 +121,7 @@ router.put("/:id/detail", upload.single("photo"), (req, res, next) => {
   .then(() =>
    models.users.findByPk(req.params.id).then(user => res.send(user))
   ).catch(error => next(error))
+  .catch(sequelize.UniqueConstraintError, (error) => res.status(500).send("User name already taken"))
 });
 
 module.exports = router;
