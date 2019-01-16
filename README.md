@@ -64,8 +64,7 @@ The second route returns just the updated user object.
 
 The very same concept is implemented with DELETE. 
 The first route, will give back all records of users after deleting the user with id 3.
-The second route, will give back a empty object and should be used when we don't need to display a list for example on a detail page of users.
-
+The second route, will give back a empty object and should be used when we don't need to update a list (for example in a detail page of all users)
 <h3> What type of extension is allowed for the field photo? </h3>
 
  ``` .jpeg, .jpg, .png, .gif ```
