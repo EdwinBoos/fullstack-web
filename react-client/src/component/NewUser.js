@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import LinearProgress from "@material-ui/core/LinearProgress";
 import Fade from "@material-ui/core/Fade";
+import Grid from "@material-ui/core/Grid";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import TextField from "@material-ui/core/TextField";
@@ -119,63 +120,65 @@ class NewUser extends Component {
             <Typography color="inherit" variant="h6">
               Add a new user
             </Typography>
-            <div>
-              <Fade in={this.state.loading}>
-                <CircularProgress color="secondary" />
-              </Fade>
-            </div>
           </Toolbar>
         </AppBar>
-        <Card style={{ maxWidth: 1200 }}>
-          <CardContent>
-            <TextField
-              error={!this.state.firstnameTextFieldValid}
-              inputRef={this.firstnameTextField}
-              onChange={this.handleFirstNameTextFieldChange}
-              value={this.state.firstname}
-              margin="normal"
-              label={this.state.firstnameLabel}
-            />
-            <TextField
-              error={!this.state.lastnameTextFieldValid}
-              inputRef={this.lastnameTextField}
-              onChange={this.handleLastNameTextFieldChange}
-              value={this.state.lastname}
-              margin="normal"
-              label={this.state.lastnameLabel}
-            />
-            <TextField
-              error={!this.state.usernameTextFieldValid}
-              inputRef={this.usernameTextField}
-              onChange={this.handleUserNameTextFieldChange}
-              value={this.state.username}
-              margin="normal"
-              label={this.state.usernameLabel}
-            />
-          </CardContent>
-          <CardActions>
-            <IconButton component="label">
-              <AddAPhotoIcon />
-              <input
-                accept="image/*"
-                onChange={this.handlePictureSelected}
-                type="file"
-                style={{ display: "none" }}
-              />
-            </IconButton>
-            <IconButton
-              disabled={
-                !this.state.usernameTextFieldValid ||
-                !this.state.firstnameTextFieldValid ||
-                !this.state.lastnameTextFieldValid
-              }
-              onClick={this.handleDonePress}
-            >
-              <DoneIcon />
-            </IconButton>
-            <Typography color="inherit">{this.state.filename}</Typography>
-          </CardActions>
-        </Card>
+        <Fade in={this.state.loading}>
+          <LinearProgress color="secondary" />
+        </Fade>
+        <Grid container justify="center">
+          <Card style={{ width: 1100 }}>
+            <CardContent>
+              <Grid container justify="center">
+                <TextField
+                  error={!this.state.firstnameTextFieldValid}
+                  inputRef={this.firstnameTextField}
+                  onChange={this.handleFirstNameTextFieldChange}
+                  value={this.state.firstname}
+                  margin="normal"
+                  label={this.state.firstnameLabel}
+                />
+                <TextField
+                  error={!this.state.lastnameTextFieldValid}
+                  inputRef={this.lastnameTextField}
+                  onChange={this.handleLastNameTextFieldChange}
+                  value={this.state.lastname}
+                  margin="normal"
+                  label={this.state.lastnameLabel}
+                />
+                <TextField
+                  error={!this.state.usernameTextFieldValid}
+                  inputRef={this.usernameTextField}
+                  onChange={this.handleUserNameTextFieldChange}
+                  value={this.state.username}
+                  margin="normal"
+                  label={this.state.usernameLabel}
+                />
+              </Grid>
+            </CardContent>
+            <CardActions style={{ justifyContent: "center" }}>
+              <IconButton component="label">
+                <AddAPhotoIcon />
+                <input
+                  accept="image/*"
+                  onChange={this.handlePictureSelected}
+                  type="file"
+                  style={{ display: "none" }}
+                />
+              </IconButton>
+              <IconButton
+                disabled={
+                  !this.state.usernameTextFieldValid ||
+                  !this.state.firstnameTextFieldValid ||
+                  !this.state.lastnameTextFieldValid
+                }
+                onClick={this.handleDonePress}
+              >
+                <DoneIcon />
+              </IconButton>
+              <Typography color="inherit">{this.state.filename}</Typography>
+            </CardActions>
+          </Card>
+        </Grid>
       </div>
     );
   }
