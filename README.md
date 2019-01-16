@@ -70,7 +70,7 @@ The second example, will give back a empty object and should be used when we don
 
  ``` .jpeg, .jpg, .png, .gif ```
  
- All other file types which gets updated will result in a error called by multer (see also: https://github.com/EdwinBoos/fullstack-web/blob/master/routes/users.js#L10)
+ All other file types which gets uploaded will result in a error called by multer (see also: https://github.com/EdwinBoos/fullstack-web/blob/master/routes/users.js#L10)
  
  <h3> How to upload a picture to the node server with React ? </h3>
  
