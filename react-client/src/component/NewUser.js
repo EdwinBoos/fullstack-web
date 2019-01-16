@@ -3,6 +3,7 @@ import axios from "axios";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Fade from "@material-ui/core/Fade";
 import Grid from "@material-ui/core/Grid";
+import Snackbar from "@material-ui/core/Snackbar";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import TextField from "@material-ui/core/TextField";
@@ -23,6 +24,8 @@ class NewUser extends Component {
     firstnameLabel: "First name",
     lastnameLabel: "Last name",
     usernameLabel: "User name",
+    snackbarMessage: "",
+    snackbarOpen: false,
     filename: "",
     firstname: "",
     lastname: "",
@@ -60,6 +63,8 @@ class NewUser extends Component {
           firstnameLabel: "First name",
           lastnameLabel: "Last name",
           usernameLabel: "User name",
+          snackbarMessage: "",
+          snackbarOpen: false,
           filename: "",
           firstname: "",
           lastname: "",
@@ -68,11 +73,27 @@ class NewUser extends Component {
       })
       .catch(error => {
         if (!axios.isCancel(error)) {
-          this.setState({
-            loading: false,
-            usernameTextFieldValid: false,
-            usernameLabel: error.request.responseText
-          });
+          // Fix me! Check when error is sequelize.UniqueConstraintError
+          if (error.request.responseText) {
+            this.setState({
+              loading: false,
+              usernameTextFieldValid: false,
+              snackbarOpen: false,
+              usernameLabel: error.request.responseText
+            });
+          } else {
+            this.setState({
+              loading: false,
+              firstnameTextFieldValid: false,
+              lastnameTextFieldValid: false,
+              usernameTextFieldValid: false,
+              firstnameLabel: "First name",
+              lastnameLabel: "Last name",
+              usernameLabel: "User name",
+              snackbarOpen: true,
+              snackbarMessage: error.request.responseText
+            });
+          }
         }
       });
   };
@@ -179,6 +200,11 @@ class NewUser extends Component {
             </CardActions>
           </Card>
         </Grid>
+        <Snackbar
+          open={this.state.snackbarOpen}
+          message={this.state.snackbarMessage}
+          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+        />
       </div>
     );
   }
