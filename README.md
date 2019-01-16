@@ -66,7 +66,7 @@ The very same concept is implemented in Delete.
 The first example, will give back all records of users after deleting the user with id 3.
 The second example, will give back a empty object and should be used when we don't need to display a list for example on a detail page of users.
 
-<h3> What type of extension is allowed for the field photo </h3>
+<h3> What type of extension is allowed for the field photo? </h3>
 
  ``` .jpeg, .jpg, .png, .gif ```
  
