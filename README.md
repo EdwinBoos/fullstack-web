@@ -55,16 +55,16 @@ By entering ```node create_tables``` it will look for sequelize-models defined i
  ``` PUT /users/3/detail  ```
 
 Its very simple, both will do the same they both update the record with the id 3, but they are giving back a different response.
-The first example should be best used, when a list gets updated, because it will respond with the whole array of users after the update of user with id 3.
-The second example should be best used, when we don't need all records, just the updated one to display for example on a detail page of users.
+The first route should be used, when a list gets updated, because it will respond with the whole array of users after the update of user with id 3.
+The second route returns just the updated user object. 
 
 ``` DELETE /users/3 ```
  
 ``` DELETE /users/3/detail  ```
 
 The very same concept is implemented with DELETE. 
-The first example, will give back all records of users after deleting the user with id 3.
-The second example, will give back a empty object and should be used when we don't need to display a list for example on a detail page of users.
+The first route, will give back all records of users after deleting the user with id 3.
+The second route, will give back a empty object and should be used when we don't need to display a list for example on a detail page of users.
 
 <h3> What type of extension is allowed for the field photo? </h3>
 
