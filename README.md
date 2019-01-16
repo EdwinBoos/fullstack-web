@@ -62,7 +62,7 @@ The second example should be best used, when we don't need all records, just the
  
 ``` DELETE /users/3/detail  ```
 
-The very same concept is implemented in Delete. 
+The very same concept is implemented with DELETE. 
 The first example, will give back all records of users after deleting the user with id 3.
 The second example, will give back a empty object and should be used when we don't need to display a list for example on a detail page of users.
 
