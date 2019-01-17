@@ -10,17 +10,14 @@ module.exports = (sequelize, DataTypes) => {
   },
   firstname: {
    type: DataTypes.STRING,
-   allowNull : false,
    notEmpty: true
   },
   lastname: {
    type: DataTypes.STRING,
-   allowNull : false,
    notEmpty: true
   },
   username: {
-   type: DataTypes.TEXT,
-   allowNull : false,
+   type: DataTypes.STRING,
    notEmpty: true,
    unique : { args : true, fields : [sequelize.fn('lower', sequelize.col('username'))]} 
   },
