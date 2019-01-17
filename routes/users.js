@@ -32,7 +32,7 @@ router.get("/:id", (req, res, next) =>
 router.post("/", (req, res, next) => {
  upload(req, res, (error) => {
   if (error instanceof multer.MulterError) {
-   res.status(300).send("Only images are allowed");
+   res.status(500).send("Only images are allowed");
   } else {
    models.users.create({
      username: req.body.username,
@@ -40,7 +40,7 @@ router.post("/", (req, res, next) => {
      firstname: req.body.firstname,
      lastname: req.body.lastname
     }).then(user => res.send(user.dataValues))
-    .catch(sequelize.UniqueConstraintError, (error) => res.status(500).send("User name already taken"))
+    .catch(sequelize.UniqueConstraintError, (error) => res.status(422).send("User name already taken"))
     .catch(error => next(error))
   }
  });
@@ -101,7 +101,7 @@ router.put("/:id", (req, res, next) => {
      models.users.findAll(options).then(users => res.send(users))
       .catch(error => next(error))
     }).catch(error => next(error))
-    .catch(sequelize.UniqueConstraintError, (error) => res.status(500).send("User name already taken"))
+    .catch(sequelize.UniqueConstraintError, (error) => res.status(422).send("User name already taken"))
 
   }
  });
@@ -126,7 +126,7 @@ router.put("/:id/detail", (req, res, next) => {
     .then(() =>
      models.users.findByPk(req.params.id).then(user => res.send(user))
     ).catch(error => next(error))
-    .catch(sequelize.UniqueConstraintError, (error) => res.status(500).send("User name already taken"))
+    .catch(sequelize.UniqueConstraintError, (error) => res.status(422).send("User name already taken"))
 
   }
  });
