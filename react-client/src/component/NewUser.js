@@ -127,9 +127,6 @@ class NewUser extends Component {
     }
   };
 
-  handleSnackbarClose = event => {
-  }
-
   render() {
     return (
       <div className="classes.root">
