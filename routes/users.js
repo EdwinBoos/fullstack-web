@@ -32,7 +32,7 @@ router.get("/:id", (req, res, next) =>
 router.post("/", (req, res, next) => {
  upload(req, res, (error) => {
   if (error instanceof multer.MulterError) {
-   res.status(500).send("Only images are allowed");
+   res.status(415).send("Only images are allowed");
   } else {
    models.users.create({
      username: req.body.username,
@@ -78,7 +78,7 @@ router.delete("/:id", (req, res, next) =>
 router.put("/:id", (req, res, next) => {
  upload(req, res, (error) => {
   if (error instanceof multer.MulterError) {
-   res.status(300).send("Only images are allowed");
+   res.status(415).send("Only images are allowed");
   } else {
    models.users
     .update({
@@ -110,7 +110,7 @@ router.put("/:id", (req, res, next) => {
 router.put("/:id/detail", (req, res, next) => {
  upload(req, res, (error) => {
   if (error instanceof multer.MulterError) {
-   res.status(300).send("Only images are allowed");
+   res.status(415).send("Only images are allowed");
   } else {
    models.users
     .update({
