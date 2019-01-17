@@ -7,21 +7,10 @@ const path = require("path");
 const storage = multer.memoryStorage();
 const upload = multer({
  storage,
- fileFilter: (req, file, callback) => {
-  const extension = path.extname(file.originalname);
-  const gifExtension = ".gif";
-  const jpgExtension = ".jpg";
-  const pngExtension = ".png";
-  const jpegExtension = ".jpeg";
-
-  if (extension.toLowerCase() !== pngExtension &&
-   extension.toLowerCase() !== jpgExtension &&
-   extension.toLowerCase() !== gifExtension &&
-   extension.toLowerCase() !== jpegExtension) {
-   return callback(new Error("Only pictures allowed"))
-  }
-  return callback(null, true);
- }
+ fileFilter: (req, file, callback) =>
+  (!path.extname(file.originalname).toLowerCase().match(/\.(jpg|jpeg|png|gif)$/)) ?
+  callback(new Error("Only pictures allowed"), false) :
+  callback(null, true)
 });
 
 router.get("/", (req, res, next) => {
