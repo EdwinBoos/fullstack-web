@@ -7,6 +7,7 @@ import CardActions from "@material-ui/core/CardActions";
 import IconButton from "@material-ui/core/IconButton";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Fade from "@material-ui/core/Fade";
+import Snackbar from "@material-ui/core/Snackbar";
 import Grid from "@material-ui/core/Grid";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -15,7 +16,12 @@ import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
 import EditIcon from "@material-ui/icons/Edit";
 
 class User extends Component {
-  state = { user: { photo: { data: "" } }, loading: false };
+  state = {
+    user: { photo: { data: "" } },
+    snackbarMessage: "",
+    snackbarOpen: false,
+    loading: false
+  };
 
   constructor() {
     super();
@@ -30,7 +36,12 @@ class User extends Component {
       .then(user => this.setState({ user: user.data, loading: false }))
       .catch(error => {
         if (!axios.isCancel(error)) {
-          this.setState({ user: { photo: { data: "" } }, loading: false });
+          this.setState({
+            user: { photo: { data: "" } },
+            loading: false,
+            snackbarOpen: true,
+            snackbarMessage: error.request.responseText
+          });
         }
       });
   }
@@ -54,7 +65,12 @@ class User extends Component {
       .then(user => this.setState({ user: user.data, loading: false }))
       .catch(error => {
         if (!axios.isCancel(error)) {
-          this.setState({ user: { photo: { data: "" } }, loading: false });
+          this.setState({
+            user: { photo: { data: "" } },
+            loading: false,
+            snackbarOpen: true,
+            snackbarMessage: error.request.responseText
+          });
         }
       });
   };
@@ -72,7 +88,12 @@ class User extends Component {
         .then(user => this.setState({ user: user.data, loading: false }))
         .catch(error => {
           if (!axios.isCancel(error)) {
-            this.setState({ user: { photo: { data: "" } }, loading: false });
+            this.setState({
+              user: { photo: { data: "" } },
+              loading: false,
+              snackbarOpen: true,
+              snackbarMessage: error.request.responseText
+            });
           }
         });
     }
@@ -127,6 +148,13 @@ class User extends Component {
             </CardActions>
           </Card>
         </Grid>
+        <Snackbar
+          autoHideDuration={5000}
+          onClose={event => this.setState({ snackbarOpen: false })}
+          open={this.state.snackbarOpen}
+          message={this.state.snackbarMessage}
+          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+        />
       </div>
     );
   }
