@@ -73,8 +73,8 @@ class NewUser extends Component {
       })
       .catch(error => {
         if (!axios.isCancel(error)) {
-          // Fix me! Check when error is sequelize.UniqueConstraintError
-          if (error.request.responseText) {
+	  const unprocessableEntityError = 422;
+          if (error.request.status === unprocessableEntityError) {
             this.setState({
               loading: false,
               usernameTextFieldValid: false,
@@ -84,12 +84,6 @@ class NewUser extends Component {
           } else {
             this.setState({
               loading: false,
-              firstnameTextFieldValid: false,
-              lastnameTextFieldValid: false,
-              usernameTextFieldValid: false,
-              firstnameLabel: "First name",
-              lastnameLabel: "Last name",
-              usernameLabel: "User name",
               snackbarOpen: true,
               snackbarMessage: error.request.responseText
             });
@@ -132,6 +126,9 @@ class NewUser extends Component {
       this.setState({ filename: event.target.files[0].name });
     }
   };
+
+  handleSnackbarClose = event => {
+  }
 
   render() {
     return (
@@ -201,6 +198,8 @@ class NewUser extends Component {
           </Card>
         </Grid>
         <Snackbar
+          autoHideDuration={5000}
+	  onClose={(event) => this.setState({ snackbarOpen : false})}
           open={this.state.snackbarOpen}
           message={this.state.snackbarMessage}
           anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
