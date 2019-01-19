@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "nodemon ./bin/www",
+    "heroku-postbuild": "cd react-client && npm install && npm run build"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",
