@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+import Axios from "axios";
 import Paper from "@material-ui/core/Paper";
 import { Link } from "react-router-dom";
 import LinearProgress from "@material-ui/core/LinearProgress";
@@ -30,7 +30,7 @@ class App extends Component {
 
   constructor() {
     super();
-    this.source = axios.CancelToken.source();
+    this.source = Axios.CancelToken.source();
   }
 
   componentDidMount() {
@@ -40,7 +40,7 @@ class App extends Component {
       snackbarMessage: "",
       snackbarOpen: false
     });
-    axios
+    Axios
       .get("/users?sort=id&order=desc", { cancelToken: this.source.token })
       .then(users =>
         this.setState({
@@ -51,7 +51,7 @@ class App extends Component {
         })
       )
       .catch(error => {
-        if (!axios.isCancel(error)) {
+        if (!Axios.isCancel(error)) {
           this.setState({
             users: [],
             loading: false,
@@ -72,13 +72,13 @@ class App extends Component {
 
   handleDeleteUserPress = (userId, event) => {
     this.setState({ users: [], loading: true });
-    axios
+    Axios
       .delete(`/users/${userId}?sort=id&order=desc`, {
         cancelToken: this.source.token
       })
       .then(users => this.setState({ users: users.data, loading: false }))
       .catch(error => {
-        if (!axios.isCancel(error)) {
+        if (!Axios.isCancel(error)) {
           this.setState({
             users: [],
             loading: false,
