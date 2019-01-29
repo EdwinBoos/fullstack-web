@@ -32,7 +32,7 @@ class User extends Component {
     lastnameTextFieldValid: false,
     firstnameLabel: "First name",
     lastnameLabel: "Last name",
-    addAPictureIconColor: "inherit",
+    addAPhotoIconColor: "inherit",
     filename: "",
     firstname: "",
     lastname: "",
@@ -91,7 +91,7 @@ class User extends Component {
         this.setState({
           user: user.data,
           filename: "",
-          addAPictureIconColor: "inherit",
+          addAPhotoIconColor: "inherit",
           loading: false,
           dialogOpen: false
         })
@@ -113,7 +113,7 @@ class User extends Component {
       this.fileBlob = event.target.files[0];
       this.setState({
         filename: event.target.files[0].name,
-        addAPictureIconColor: "secondary"
+        addAPhotoIconColor: "secondary"
       });
     }
   };
@@ -219,7 +219,7 @@ class User extends Component {
           </DialogContent>
           <DialogActions>
             <IconButton component="label">
-              <AddAPhotoIcon color={this.state.addAPictureIconColor} />
+              <AddAPhotoIcon color={this.state.addAPhotoIconColor} />
               <input
                 accept="image/*"
                 onChange={this.handlePictureSelected}
