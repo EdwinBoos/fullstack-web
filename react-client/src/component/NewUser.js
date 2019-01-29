@@ -73,7 +73,7 @@ class NewUser extends Component {
       })
       .catch(error => {
         if (!axios.isCancel(error)) {
-	  const unprocessableEntityError = 422;
+          const unprocessableEntityError = 422;
           if (error.request.status === unprocessableEntityError) {
             this.setState({
               loading: false,
@@ -126,6 +126,8 @@ class NewUser extends Component {
       this.setState({ filename: event.target.files[0].name });
     }
   };
+
+  handleSnackbarClose = event => this.setState({ snackbarOpen: false });
 
   render() {
     return (
@@ -196,7 +198,7 @@ class NewUser extends Component {
         </Grid>
         <Snackbar
           autoHideDuration={5000}
-	  onClose={(event) => this.setState({ snackbarOpen : false})}
+          onClose={this.handleSnackbarClose}
           open={this.state.snackbarOpen}
           message={this.state.snackbarMessage}
           anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
