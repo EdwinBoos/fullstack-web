@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+import Axios from "axios";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Fade from "@material-ui/core/Fade";
 import Grid from "@material-ui/core/Grid";
@@ -39,7 +39,7 @@ class NewUser extends Component {
     this.firstnameTextField = React.createRef();
     this.lastnameTextField = React.createRef();
     this.usernameTextField = React.createRef();
-    this.source = axios.CancelToken.source();
+    this.source = Axios.CancelToken.source();
   }
 
   componentWillUnmount() {
@@ -53,7 +53,7 @@ class NewUser extends Component {
     userData.append("lastname", this.lastnameTextField.current.value);
     userData.append("username", this.usernameTextField.current.value);
     this.setState({ loading: true });
-    axios
+    Axios
       .post(`/users`, userData, { cancelToken: this.source.token })
       .then(() => {
         this.setState({
@@ -74,7 +74,7 @@ class NewUser extends Component {
         });
       })
       .catch(error => {
-        if (!axios.isCancel(error)) {
+        if (!Axios.isCancel(error)) {
           const unprocessableEntityError = 422;
           if (error.request.status === unprocessableEntityError) {
             this.setState({
