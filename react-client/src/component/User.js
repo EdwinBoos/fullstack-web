@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+import Axios from "axios";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -42,7 +42,7 @@ class User extends Component {
   constructor() {
     super();
     this.fileBlob = void 0;
-    this.source = axios.CancelToken.source();
+    this.source = Axios.CancelToken.source();
     this.firstnameTextField = React.createRef();
     this.lastnameTextField = React.createRef();
   }
@@ -50,7 +50,7 @@ class User extends Component {
   componentDidMount() {
     const { userId } = this.props.match.params;
     this.setState({ user: { photo: { data: "" } }, loading: true });
-    axios
+    Axios
       .get(`/users/${userId}`, { cancelToken: this.source.token })
       .then(user =>
         this.setState({
@@ -61,7 +61,7 @@ class User extends Component {
         })
       )
       .catch(error => {
-        if (!axios.isCancel(error)) {
+        if (!Axios.isCancel(error)) {
           this.setState({
             user: { photo: { data: "" } },
             loading: false,
@@ -83,7 +83,7 @@ class User extends Component {
     userData.append("lastname", this.lastnameTextField.current.value);
     userData.append("photo", this.fileBlob);
     this.setState({ user: { photo: { data: "" } }, loading: true });
-    axios
+    Axios
       .put(`/users/${userId}/detail`, userData, {
         cancelToken: this.source.token
       })
@@ -97,7 +97,7 @@ class User extends Component {
         })
       )
       .catch(error => {
-        if (!axios.isCancel(error)) {
+        if (!Axios.isCancel(error)) {
           this.setState({
             user: { photo: { data: "" } },
             loading: false,
