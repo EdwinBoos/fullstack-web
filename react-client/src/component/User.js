@@ -1,13 +1,20 @@
 import React, { Component } from "react";
 import axios from "axios";
+import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardActions from "@material-ui/core/CardActions";
+import Dialog from "@material-ui/core/Dialog";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
 import IconButton from "@material-ui/core/IconButton";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Fade from "@material-ui/core/Fade";
 import Snackbar from "@material-ui/core/Snackbar";
+import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -20,12 +27,24 @@ class User extends Component {
     user: { photo: { data: "" } },
     snackbarMessage: "",
     snackbarOpen: false,
+    dialogOpen: false,
+    firstnameTextFieldValid: false,
+    lastnameTextFieldValid: false,
+    firstnameLabel: "First name",
+    lastnameLabel: "Last name",
+    addAPictureIconColor: "inherit",
+    filename: "",
+    firstname: "",
+    lastname: "",
     loading: false
   };
 
   constructor() {
     super();
+    this.fileBlob = void 0;
     this.source = axios.CancelToken.source();
+    this.firstnameTextField = React.createRef();
+    this.lastnameTextField = React.createRef();
   }
 
   componentDidMount() {
@@ -33,7 +52,14 @@ class User extends Component {
     this.setState({ user: { photo: { data: "" } }, loading: true });
     axios
       .get(`/users/${userId}`, { cancelToken: this.source.token })
-      .then(user => this.setState({ user: user.data, loading: false }))
+      .then(user =>
+        this.setState({
+          user: user.data,
+          loading: false,
+          firstname: user.data.firstname,
+          lastname: user.data.lastname
+        })
+      )
       .catch(error => {
         if (!axios.isCancel(error)) {
           this.setState({
@@ -51,18 +77,25 @@ class User extends Component {
   }
 
   handleEditUserPress = event => {
-    const userData = {
-      username: "",
-      firstname: "",
-      lastname: ""
-    };
     const { userId } = this.props.match.params;
+    const userData = new FormData();
+    userData.append("firstname", this.firstnameTextField.current.value);
+    userData.append("lastname", this.lastnameTextField.current.value);
+    userData.append("photo", this.fileBlob);
     this.setState({ user: { photo: { data: "" } }, loading: true });
     axios
       .put(`/users/${userId}/detail`, userData, {
         cancelToken: this.source.token
       })
-      .then(user => this.setState({ user: user.data, loading: false }))
+      .then(user =>
+        this.setState({
+          user: user.data,
+          filename: "",
+          addAPictureIconColor: "inherit",
+          loading: false,
+          dialogOpen: false
+        })
+      )
       .catch(error => {
         if (!axios.isCancel(error)) {
           this.setState({
@@ -76,30 +109,45 @@ class User extends Component {
   };
 
   handlePictureSelected = event => {
-    const userData = new FormData();
-    const { userId } = this.props.match.params;
     if (event.target.files.length > 0) {
-      userData.append("photo", event.target.files[0]);
-      this.setState({ user: { photo: { data: "" } }, loading: true });
-      axios
-        .put(`/users/${userId}/detail`, userData, {
-          cancelToken: this.source.token
-        })
-        .then(user => this.setState({ user: user.data, loading: false }))
-        .catch(error => {
-          if (!axios.isCancel(error)) {
-            this.setState({
-              user: { photo: { data: "" } },
-              loading: false,
-              snackbarOpen: true,
-              snackbarMessage: error.request.responseText
-            });
-          }
-        });
+      this.fileBlob = event.target.files[0];
+      this.setState({
+        filename: event.target.files[0].name,
+        addAPictureIconColor: "secondary"
+      });
     }
   };
 
+  handleFirstNameTextFieldChange = event => {
+    const valid = new RegExp(/^(?=.{1,50}$)[a-z]+(?:['_.\s][a-z]+)*$/i).test(
+      event.target.value
+    );
+    this.setState({
+      firstname: event.target.value,
+      firstnameTextFieldValid: valid
+    });
+  };
+
+  handleLastNameTextFieldChange = event => {
+    const valid = new RegExp(/^(?=.{1,50}$)[a-z]+(?:['_.\s][a-z]+)*$/i).test(
+      event.target.value
+    );
+    this.setState({
+      lastname: event.target.value,
+      lastnameTextFieldValid: valid
+    });
+  };
+
   handleSnackbarClose = event => this.setState({ snackbarOpen: false });
+
+  handleDialogClose = event => this.setState({ dialogOpen: false });
+
+  handleDialogOpen = event =>
+    this.setState({
+      dialogOpen: true,
+      firstnameTextFieldValid: true,
+      lastnameTextFieldValid: true
+    });
 
   render() {
     return (
@@ -134,17 +182,8 @@ class User extends Component {
                 last name: {this.state.user.lastname}
               </Typography>
             </CardContent>
-            <CardActions style={{ justifyContent: "center" }}>
-              <IconButton component="label">
-                <AddAPhotoIcon />
-                <input
-                  accept="image/*"
-                  onChange={this.handlePictureSelected}
-                  type="file"
-                  style={{ display: "none" }}
-                />
-              </IconButton>
-              <IconButton onClick={this.handleEditUserPress}>
+            <CardActions>
+              <IconButton onClick={this.handleDialogOpen}>
                 <EditIcon />
               </IconButton>
             </CardActions>
@@ -157,6 +196,53 @@ class User extends Component {
           message={this.state.snackbarMessage}
           anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
         />
+        <Dialog open={this.state.dialogOpen} onClose={this.handleDialogClose}>
+          <DialogTitle>Edit user {this.state.user.username}</DialogTitle>
+          <DialogContent>
+            <TextField
+              error={!this.state.firstnameTextFieldValid}
+              inputRef={this.firstnameTextField}
+              onChange={this.handleFirstNameTextFieldChange}
+              value={this.state.firstname}
+              margin="normal"
+              label={this.state.firstnameLabel}
+            />
+            <TextField
+              error={!this.state.lastnameTextFieldValid}
+              inputRef={this.lastnameTextField}
+              onChange={this.handleLastNameTextFieldChange}
+              value={this.state.lastname}
+              margin="normal"
+              label={this.state.lastnameLabel}
+            />
+            <DialogContentText>{this.state.filename}</DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <IconButton component="label">
+              <AddAPhotoIcon color={this.state.addAPictureIconColor} />
+              <input
+                accept="image/*"
+                onChange={this.handlePictureSelected}
+                type="file"
+                style={{ display: "none" }}
+              />
+            </IconButton>
+
+            <Button color="primary" onClick={this.handleDialogClose}>
+              Cancel
+            </Button>
+            <Button
+              color="primary"
+              onClick={this.handleEditUserPress}
+              disabled={
+                !this.state.firstnameTextFieldValid ||
+                !this.state.lastnameTextFieldValid
+              }
+            >
+              Accept
+            </Button>
+          </DialogActions>
+        </Dialog>
       </div>
     );
   }
