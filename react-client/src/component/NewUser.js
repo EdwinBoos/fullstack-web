@@ -26,6 +26,7 @@ class NewUser extends Component {
     usernameLabel: "User name",
     snackbarMessage: "",
     snackbarOpen: false,
+    addAPhotoIconColor: "inherit",
     filename: "",
     firstname: "",
     lastname: "",
@@ -65,6 +66,7 @@ class NewUser extends Component {
           usernameLabel: "User name",
           snackbarMessage: "",
           snackbarOpen: false,
+          addAPhotoIconColor: "inherit",
           filename: "",
           firstname: "",
           lastname: "",
@@ -123,7 +125,10 @@ class NewUser extends Component {
   handlePictureSelected = event => {
     if (event.target.files.length > 0) {
       this.fileBlob = event.target.files[0];
-      this.setState({ filename: event.target.files[0].name });
+      this.setState({
+        filename: event.target.files[0].name,
+        addAPhotoIconColor: "secondary"
+      });
     }
   };
 
@@ -174,7 +179,7 @@ class NewUser extends Component {
             </CardContent>
             <CardActions style={{ justifyContent: "center" }}>
               <IconButton component="label">
-                <AddAPhotoIcon />
+                <AddAPhotoIcon color={this.state.addAPhotoIconColor} />
                 <input
                   accept="image/*"
                   onChange={this.handlePictureSelected}
