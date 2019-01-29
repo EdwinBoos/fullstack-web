@@ -99,6 +99,8 @@ class User extends Component {
     }
   };
 
+  handleSnackbarClose = event => this.setState({ snackbarOpen: false });
+
   render() {
     return (
       <div className="classes.root">
@@ -150,7 +152,7 @@ class User extends Component {
         </Grid>
         <Snackbar
           autoHideDuration={5000}
-          onClose={event => this.setState({ snackbarOpen: false })}
+          onClose={this.handleSnackbarClose}
           open={this.state.snackbarOpen}
           message={this.state.snackbarMessage}
           anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
