@@ -73,6 +73,6 @@ The second route, will give back a empty object and should be used when we don't
  
  <h3> How to upload a picture to the node server with React ? </h3>
  
- See here: https://github.com/EdwinBoos/fullstack-web/blob/master/react-client/src/component/User.js#L61 its a example of a put with axios and the FormData API.
+ See here: https://github.com/EdwinBoos/fullstack-web/blob/master/react-client/src/component/User.js#L84 its a example of a put with axios and the FormData API.
 
 
