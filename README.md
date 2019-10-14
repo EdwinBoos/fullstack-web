@@ -1,3 +1,8 @@
+# fullstack-web
+
+<img src="./react-client/screenshots/3.png">
+
+[More Screenshots](./react-client/README.md) <br>
 
 # Node Server (Backend)
 
@@ -71,8 +76,5 @@ The second route, will give back a empty object and should be used when we don't
  
  All other file types which gets uploaded will result in a error called by multer (see also: https://github.com/EdwinBoos/fullstack-web/blob/master/routes/users.js#L10)
  
- <h3> How to upload a picture to the node server with React ? </h3>
- 
- See here: https://github.com/EdwinBoos/fullstack-web/blob/master/react-client/src/component/User.js#L84 its a example of a put with axios and the FormData API.
 
 
